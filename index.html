@@ -38,15 +38,15 @@
     }
 
     body[data-theme="light"] {
-      --dark: #eaf1ff;
-      --dark-secondary: #f5f7fb;
-      --bg: #eef4ff;
-      --card: rgba(255, 255, 255, 0.82);
-      --card-light: rgba(255, 255, 255, 0.62);
+      --dark: #f4f8ff;
+      --dark-secondary: #f8fbff;
+      --bg: #edf4ff;
+      --card: rgba(255, 255, 255, 0.9);
+      --card-light: rgba(255, 255, 255, 0.72);
       --text: #0f172a;
-      --text-secondary: #475569;
-      --border: rgba(15, 23, 42, 0.1);
-      --border-light: rgba(15, 23, 42, 0.14);
+      --text-secondary: #52627a;
+      --border: rgba(15, 23, 42, 0.08);
+      --border-light: rgba(15, 23, 42, 0.12);
     }
 
     body[data-theme="light"] {
@@ -90,7 +90,7 @@
     }
 
     body[data-theme="light"] .left-section {
-      background: linear-gradient(135deg, rgba(255,255,255,0.88), rgba(240,245,255,0.9));
+      background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(240,246,255,0.96));
     }
 
     body[data-theme="light"] .dashboard-sidebar {
@@ -103,8 +103,26 @@
 
     body[data-theme="light"] .topbar-search input,
     body[data-theme="light"] .form-input {
-      background: rgba(15, 23, 42, 0.04);
+      background: rgba(15, 23, 42, 0.035);
       color: var(--text);
+    }
+
+    body[data-theme="light"] .auth-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,255,0.95));
+      border-color: rgba(148, 163, 184, 0.16);
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+    }
+
+    body[data-theme="light"] .illustration-card {
+      background: linear-gradient(180deg, rgba(248,250,255,0.96), rgba(235,243,255,0.96));
+      border-color: rgba(148, 163, 184, 0.16);
+      box-shadow: 0 16px 45px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    body[data-theme="light"] .stat-item {
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(239,245,255,0.96));
+      border-color: rgba(148, 163, 184, 0.16);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
     }
 
     body[data-theme="light"] .hero-badge,
@@ -398,6 +416,17 @@
       background: radial-gradient(circle at 30% 30%, rgba(37, 99, 235, 0.22), transparent 42%),
                   radial-gradient(circle at 70% 70%, rgba(20, 184, 166, 0.16), transparent 40%);
       pointer-events: none;
+    }
+
+    .illustration-card img {
+      width: min(58%, 230px);
+      height: auto;
+      display: block;
+      margin: 10px auto 18px;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 16px 24px rgba(15, 23, 42, 0.18));
+      animation: float-emoji 3s ease-in-out infinite;
     }
 
     .stat {
@@ -2545,7 +2574,10 @@
         <div class="tagline">Campus Life Management System</div>
 
         <div class="illustration-card">
-          <div style="font-size: 64px; margin: 30px 0; animation: float-emoji 3s ease-in-out infinite;">🏫</div>
+          <img
+            alt="Campus building illustration"
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%2314b8a6'/%3E%3C/linearGradient%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ffffff'/%3E%3Cstop offset='100%25' stop-color='%23dbeafe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='240' height='180' rx='24' fill='none'/%3E%3Ccircle cx='64' cy='48' r='22' fill='%232563eb' fill-opacity='.14'/%3E%3Ccircle cx='182' cy='38' r='28' fill='%2314b8a6' fill-opacity='.14'/%3E%3Ccircle cx='198' cy='126' r='24' fill='%232563eb' fill-opacity='.12'/%3E%3Cpath d='M74 88h92v56H74z' fill='url(%23g2)' stroke='url(%23g1)' stroke-width='4' rx='10'/%3E%3Cpath d='M64 88h112l-56-34z' fill='url(%23g1)' stroke='%230f172a' stroke-width='4' stroke-linejoin='round'/%3E%3Crect x='96' y='101' width='16' height='43' rx='8' fill='%2314b8a6'/%3E%3Crect x='130' y='101' width='16' height='43' rx='8' fill='%232563eb'/%3E%3Crect x='88' y='126' width='64' height='18' rx='8' fill='%23eff6ff' stroke='%23cbd5e1'/%3E%3Ccircle cx='120' cy='70' r='11' fill='%23f8fafc' stroke='%23f43f5e' stroke-width='4'/%3E%3Cpath d='M120 64v7l5 4' fill='none' stroke='%23f43f5e' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+          />
           <div style="font-size: 14px; color: var(--text-secondary); font-weight: 500;">Smart Campus Management Platform</div>
         </div>
 
