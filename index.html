@@ -1,0 +1,3982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLMS - Campus Life Management System</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      font-size: 16px;
+      --primary: #2563EB;
+      --primary-dark: #1e40af;
+      --accent: #14B8A6;
+      --accent-light: #2dd4bf;
+      --dark: #020617;
+      --dark-secondary: #0f172a;
+      --bg: #0a0e27;
+      --card: rgba(15, 23, 42, 0.75);
+      --card-light: rgba(30, 41, 59, 0.5);
+      --text: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --border: rgba(148, 163, 184, 0.1);
+      --border-light: rgba(148, 163, 184, 0.2);
+      --success: #10b981;
+      --error: #ef4444;
+    }
+
+    body[data-theme="light"] {
+      --dark: #eaf1ff;
+      --dark-secondary: #f5f7fb;
+      --bg: #eef4ff;
+      --card: rgba(255, 255, 255, 0.82);
+      --card-light: rgba(255, 255, 255, 0.62);
+      --text: #0f172a;
+      --text-secondary: #475569;
+      --border: rgba(15, 23, 42, 0.1);
+      --border-light: rgba(15, 23, 42, 0.14);
+    }
+
+    body[data-theme="light"] {
+      background: linear-gradient(135deg, #f7fbff 0%, #eef4ff 45%, #e9f1ff 100%);
+    }
+
+    body[data-theme="light"] .bg-animated::before {
+      background-image:
+        linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+      opacity: 0.45;
+    }
+
+    body[data-theme="light"] .bg-animated::after {
+      background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.08), transparent 55%);
+    }
+
+    body[data-theme="light"] .container,
+    body[data-theme="light"] .app-shell {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(245, 248, 255, 0.9));
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.12);
+      border-color: rgba(15, 23, 42, 0.08);
+    }
+
+    body[data-theme="light"] .left-section,
+    body[data-theme="light"] .dashboard-sidebar,
+    body[data-theme="light"] .dashboard-topbar,
+    body[data-theme="light"] .panel,
+    body[data-theme="light"] .auth-card,
+    body[data-theme="light"] .modal-content,
+    body[data-theme="light"] .toast,
+    body[data-theme="light"] .month-cell,
+    body[data-theme="light"] .calendar-day,
+    body[data-theme="light"] .teacher-row,
+    body[data-theme="light"] .calendar-switch,
+    body[data-theme="light"] .month-cell,
+    body[data-theme="light"] .month-grid .month-cell,
+    body[data-theme="light"] .queue-card {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-color: rgba(15, 23, 42, 0.09);
+    }
+
+    body[data-theme="light"] .left-section {
+      background: linear-gradient(135deg, rgba(255,255,255,0.88), rgba(240,245,255,0.9));
+    }
+
+    body[data-theme="light"] .dashboard-sidebar {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    body[data-theme="light"] .dashboard-topbar {
+      background: rgba(255, 255, 255, 0.88);
+    }
+
+    body[data-theme="light"] .topbar-search input,
+    body[data-theme="light"] .form-input {
+      background: rgba(15, 23, 42, 0.04);
+      color: var(--text);
+    }
+
+    body[data-theme="light"] .hero-badge,
+    body[data-theme="light"] .status-pill,
+    body[data-theme="light"] .calendar-slot,
+    body[data-theme="light"] .calendar-switch.active {
+      color: #fff;
+    }
+
+    body[data-theme="light"] .sidebar-item {
+      color: var(--text-secondary);
+    }
+
+    body[data-theme="light"] .sidebar-item.active,
+    body[data-theme="light"] .sidebar-item:hover {
+      background: rgba(37, 99, 235, 0.08);
+      border-color: rgba(37, 99, 235, 0.12);
+    }
+
+    body[data-theme="light"] .dashboard-section .panel,
+    body[data-theme="light"] .kpi-card,
+    body[data-theme="light"] .calendar-day,
+    body[data-theme="light"] .teacher-row,
+    body[data-theme="light"] .month-cell {
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    }
+
+    body[data-theme="light"] .panel,
+    body[data-theme="light"] .app-panel {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(245, 248, 255, 0.92));
+      border-color: rgba(15, 23, 42, 0.08);
+    }
+
+    body[data-theme="light"] .chart-shell,
+    body[data-theme="light"] .calendar-day,
+    body[data-theme="light"] .month-cell,
+    body[data-theme="light"] .teacher-row {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 250, 255, 0.96));
+      border-color: rgba(15, 23, 42, 0.08);
+    }
+
+    body[data-theme="light"] .kpi-card {
+      background: linear-gradient(180deg, rgba(37, 99, 235, 0.12), rgba(20, 184, 166, 0.06));
+      border-color: rgba(37, 99, 235, 0.12);
+    }
+
+    body[data-theme="light"] .dash-hero {
+      color: #0f172a;
+    }
+
+    body[data-theme="light"] .section-head h4,
+    body[data-theme="light"] .panel p,
+    body[data-theme="light"] .chart-legend,
+    body[data-theme="light"] .teacher-row p,
+    body[data-theme="light"] .month-cell .date,
+    body[data-theme="light"] .calendar-day strong {
+      color: var(--text-secondary);
+    }
+
+    body[data-theme="light"] .calendar-slot {
+      color: #1d4ed8;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.14), rgba(20, 184, 166, 0.08));
+      border-color: rgba(59, 130, 246, 0.16);
+    }
+
+    body[data-theme="light"] .calendar-slot.teal {
+      color: #0f766e;
+      background: linear-gradient(135deg, rgba(20, 184, 166, 0.16), rgba(45, 212, 191, 0.1));
+      border-color: rgba(20, 184, 166, 0.16);
+    }
+
+    body[data-theme="light"] .calendar-slot.amber {
+      color: #b45309;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.16), rgba(251, 191, 36, 0.1));
+      border-color: rgba(245, 158, 11, 0.16);
+    }
+
+    body[data-theme="light"] .calendar-switch {
+      background: rgba(255, 255, 255, 0.98);
+      color: #334155;
+      border-color: rgba(15, 23, 42, 0.12);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+    }
+
+    body[data-theme="light"] .calendar-switch.active {
+      color: #ffffff;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+    }
+
+    body[data-theme="light"] .bar-chart span {
+      box-shadow: 0 10px 22px rgba(37, 99, 235, 0.12);
+    }
+
+    body[data-theme="light"] .app-title,
+    body[data-theme="light"] .dash-hero h3,
+    body[data-theme="light"] .panel h4,
+    body[data-theme="light"] .auth-title,
+    body[data-theme="light"] .logo,
+    body[data-theme="light"] .sidebar-item span {
+      color: #0f172a;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #020617 0%, #0a0e27 50%, #0f172a 100%);
+      color: var(--text);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      min-height: 100vh;
+      padding: 14px;
+    }
+
+    .bg-animated {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .bg-animated::before,
+    .bg-animated::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .bg-animated::before {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent 90%);
+      opacity: 0.25;
+    }
+
+    .bg-animated::after {
+      background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.12), transparent 55%);
+    }
+
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.4;
+      animation: glow-pulse 8s ease-in-out infinite;
+    }
+
+    .glow-orb-1 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.5) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+    }
+
+    .glow-orb-2 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(20, 184, 166, 0.3) 0%, transparent 70%);
+      bottom: -150px;
+      left: -150px;
+      animation: glow-pulse 12s ease-in-out infinite;
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.2); opacity: 0.6; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 0.55fr 0.45fr;
+      width: 100%;
+      height: calc(100vh - 28px);
+      align-items: center;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(10px);
+    }
+
+    .left-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 28px;
+      position: relative;
+      background: linear-gradient(135deg, rgba(2, 6, 23, 0.8) 0%, rgba(15, 23, 42, 0.6) 100%);
+      border-right: 1px solid var(--border);
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .left-section::before,
+    .left-section::after {
+      content: '';
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(18px);
+      pointer-events: none;
+    }
+
+    .left-section::before {
+      width: 280px;
+      height: 280px;
+      top: 8%;
+      left: -80px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.22) 0%, transparent 72%);
+      animation: float-blob 12s ease-in-out infinite;
+    }
+
+    .left-section::after {
+      width: 320px;
+      height: 320px;
+      right: -100px;
+      bottom: 10%;
+      background: radial-gradient(circle, rgba(20, 184, 166, 0.18) 0%, transparent 72%);
+      animation: float-blob 14s ease-in-out infinite reverse;
+    }
+
+    .left-content {
+      text-align: center;
+      max-width: 520px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo {
+      font-size: 52px;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-bottom: 36px;
+      letter-spacing: 0.5px;
+    }
+
+    .illustration-card {
+      position: relative;
+      width: 100%;
+      height: clamp(220px, 23vh, 280px);
+      margin: 12px 0 14px;
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.52), rgba(15, 23, 42, 0.3));
+      border: 1px solid var(--border-light);
+      border-radius: 28px;
+      padding: 40px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      animation: float-card 4s ease-in-out infinite;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes float-card {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .illustration-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(37, 99, 235, 0.22), transparent 42%),
+                  radial-gradient(circle at 70% 70%, rgba(20, 184, 166, 0.16), transparent 40%);
+      pointer-events: none;
+    }
+
+    .stat {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+      gap: 18px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      flex: 1 1 150px;
+      min-width: 150px;
+      padding: 16px 12px;
+      background: rgba(37, 99, 235, 0.12);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+      animation: fade-in 0.6s ease-out forwards;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-4px);
+      border-color: rgba(20, 184, 166, 0.35);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .stat-item:nth-child(2) { animation-delay: 0.1s; }
+    .stat-item:nth-child(3) { animation-delay: 0.2s; }
+    .stat-item:nth-child(4) { animation-delay: 0.3s; }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .right-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 20px;
+      position: relative;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(20, 25, 45, 0.6) 100%);
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 488px;
+      animation: slide-in 0.5s ease-out;
+    }
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .auth-card {
+      background: linear-gradient(180deg, rgba(17, 24, 39, 0.82), rgba(15, 23, 42, 0.72));
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 22px 24px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+      position: relative;
+      overflow: hidden auto;
+      max-height: calc(100vh - 48px);
+    }
+
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.16) 0%, transparent 48%),
+                  radial-gradient(circle at 80% 10%, rgba(20, 184, 166, 0.1) 0%, transparent 36%);
+      pointer-events: none;
+    }
+
+    .auth-card-content {
+      position: relative;
+      z-index: 1;
+      padding-bottom: 6px;
+    }
+
+    .auth-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .auth-toolbar-note {
+      font-size: 11px;
+      color: var(--text-secondary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .auth-theme-switcher {
+      min-width: 108px;
+      padding: 10px 14px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .auth-theme-switcher:hover {
+      transform: translateY(-1px);
+      border-color: rgba(37, 99, 235, 0.3);
+    }
+
+    .auth-theme-switcher i {
+      font-size: 15px;
+    }
+
+    body[data-theme="light"] .auth-theme-switcher {
+      background: rgba(255, 255, 255, 0.92);
+      border-color: rgba(148, 163, 184, 0.24);
+      color: #0f172a;
+    }
+
+    .auth-header {
+      margin-bottom: 10px;
+    }
+
+    .auth-title {
+      font-size: clamp(28px, 2.5vw, 38px);
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .auth-subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .tab-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 6px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+    }
+
+    .tab-btn {
+      padding: 10px 14px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+    }
+
+    .tab-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .auth-form {
+      display: none;
+      width: 100%;
+    }
+
+    .auth-form.active {
+      display: block;
+    }
+
+    .auth-form form {
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-input {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 16px 10px 42px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      color: var(--text);
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-input::placeholder {
+      color: rgba(203, 213, 225, 0.5);
+    }
+
+    .form-input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      color: var(--text-secondary);
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 16px;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px;
+      transition: color 0.3s ease;
+    }
+
+    .password-toggle:hover {
+      color: var(--primary);
+    }
+
+    .password-strength {
+      margin-top: 8px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .strength-bar {
+      height: 100%;
+      background: var(--error);
+      width: 0%;
+      transition: width 0.3s ease, background-color 0.3s ease;
+    }
+
+    .strength-bar.weak {
+      width: 33%;
+      background: #f97316;
+    }
+
+    .strength-bar.medium {
+      width: 66%;
+      background: #eab308;
+    }
+
+    .strength-bar.strong {
+      width: 100%;
+      background: var(--success);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 10px 0 8px;
+    }
+
+    .checkbox {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .checkbox:checked {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      border-color: var(--accent);
+    }
+
+    .checkbox:checked::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .checkbox-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .checkbox-label a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .checkbox-label a:hover {
+      color: var(--accent);
+    }
+
+    .btn-primary {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      border: none;
+      border-radius: 16px;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 14px 28px rgba(37, 99, 235, 0.26);
+      position: relative;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: left 0.3s ease;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary.loading {
+      opacity: 0.8;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 20px;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 12px;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      background: rgba(37, 99, 235, 0.05);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      gap: 16px;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .link-text {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+    }
+
+    .link-text a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .link-text a:hover {
+      color: var(--accent);
+    }
+
+    .toast-container {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      max-width: 440px;
+    }
+
+    .toast {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      backdrop-filter: blur(10px);
+      animation: toast-slide 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes toast-slide {
+      from { transform: translateX(400px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .toast.success { border-color: var(--success); }
+    .toast.error { border-color: var(--error); }
+    .toast.info { border-color: var(--primary); }
+
+    .toast-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .toast-message {
+      font-size: 13px;
+      flex: 1;
+    }
+
+    .app-shell {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: calc(100vh - 28px);
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: linear-gradient(135deg, rgba(6, 10, 28, 0.96), rgba(13, 18, 40, 0.92));
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px);
+      padding: 22px;
+      display: flex;
+      flex-direction: row;
+      gap: 18px;
+      overflow: hidden;
+    }
+
+    .dashboard-sidebar {
+      width: 260px;
+      flex: 0 0 260px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: rgba(7, 11, 26, 0.86);
+      padding: 18px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+
+    .sidebar-brand {
+      margin-bottom: 16px;
+    }
+
+    .sidebar-sub {
+      color: var(--text-secondary);
+      font-size: 12px;
+      margin-top: 4px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .sidebar-nav {
+      display: grid;
+      gap: 8px;
+    }
+
+    .sidebar-item {
+      width: 100%;
+      text-align: left;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .sidebar-item span {
+      flex: 1;
+    }
+
+    .sidebar-item i {
+      width: 18px;
+      text-align: center;
+      color: var(--accent);
+    }
+
+    .sidebar-item.active,
+    .sidebar-item:hover {
+      background: rgba(37, 99, 235, 0.12);
+      color: var(--text);
+      border-color: rgba(37, 99, 235, 0.22);
+      transform: translateX(2px);
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.1);
+    }
+
+    .dashboard-main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .dashboard-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      border-radius: 20px;
+      background: rgba(8, 12, 28, 0.78);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-search {
+      flex: 1;
+    }
+
+    .topbar-search input {
+      width: 100%;
+      min-height: 46px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      padding: 0 16px;
+      font-size: 14px;
+    }
+
+    .topbar-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .topbar-actions .footer-nav-btn {
+      min-width: 46px;
+      padding: 0 14px;
+    }
+
+    .dashboard-content {
+      flex: 1;
+      overflow-y: auto;
+      min-height: 0;
+      padding-right: 6px;
+    }
+
+    .mini-calendar {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .calendar-day {
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 12px;
+      min-height: 108px;
+    }
+
+    .calendar-day strong {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .calendar-slot {
+      display: block;
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.22), rgba(20, 184, 166, 0.14));
+      border: 1px solid rgba(37, 99, 235, 0.22);
+      color: #dbeafe;
+    }
+
+    .calendar-slot.teal {
+      background: linear-gradient(135deg, rgba(20, 184, 166, 0.22), rgba(45, 212, 191, 0.14));
+      border-color: rgba(20, 184, 166, 0.22);
+      color: #cffafe;
+    }
+
+    .calendar-slot.amber {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(251, 191, 36, 0.14));
+      border-color: rgba(245, 158, 11, 0.22);
+      color: #ffedd5;
+    }
+
+    .calendar-toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .calendar-legend {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 10px 0 14px;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .subject-dsa { background: linear-gradient(135deg, rgba(37, 99, 235, 0.22), rgba(59, 130, 246, 0.16)); border-color: rgba(37, 99, 235, 0.24); }
+    .subject-dbms { background: linear-gradient(135deg, rgba(20, 184, 166, 0.22), rgba(45, 212, 191, 0.16)); border-color: rgba(20, 184, 166, 0.24); }
+    .subject-ai { background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(251, 191, 36, 0.16)); border-color: rgba(245, 158, 11, 0.24); }
+    .subject-cloud { background: linear-gradient(135deg, rgba(139, 92, 246, 0.22), rgba(167, 139, 250, 0.16)); border-color: rgba(139, 92, 246, 0.24); }
+    .subject-workshop { background: linear-gradient(135deg, rgba(236, 72, 153, 0.18), rgba(244, 114, 182, 0.14)); border-color: rgba(236, 72, 153, 0.22); }
+    .subject-study { background: linear-gradient(135deg, rgba(100, 116, 139, 0.18), rgba(148, 163, 184, 0.14)); border-color: rgba(100, 116, 139, 0.22); }
+
+    .calendar-switch {
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .calendar-switch.active {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-color: transparent;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.18);
+    }
+
+    .calendar-panel {
+      display: none;
+    }
+
+    .calendar-panel.active {
+      display: block;
+    }
+
+    .month-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .month-cell {
+      min-height: 92px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 10px;
+    }
+
+    .month-cell .date {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .month-cell.today {
+      border-color: rgba(20, 184, 166, 0.6);
+      box-shadow: 0 0 0 1px rgba(20, 184, 166, 0.14), 0 12px 30px rgba(20, 184, 166, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .month-cell.today .date {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .month-cell.today::before {
+      content: 'TODAY';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .teacher-strip {
+      display: grid;
+      gap: 10px;
+    }
+
+    .teacher-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .teacher-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      flex: 0 0 auto;
+    }
+
+    .teacher-row p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .dashboard-section {
+      display: none;
+    }
+
+    .dashboard-section.active {
+      display: block;
+      animation: section-fade 0.28s ease;
+    }
+
+    @keyframes section-fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .app-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .app-kicker {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .app-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.05;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      flex: 0 0 auto;
+    }
+
+    .app-panel {
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 20px;
+      min-height: 180px;
+    }
+
+    .dash-hero {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .kpi-grid,
+    .dashboard-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .kpi-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 16px;
+    }
+
+    .kpi-card {
+      border-radius: 20px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(37, 99, 235, 0.16), rgba(20, 184, 166, 0.08));
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      display: grid;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      min-height: 120px;
+    }
+
+    .kpi-card::after {
+      content: '';
+      position: absolute;
+      inset: auto -18px -24px auto;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.16), transparent 65%);
+      pointer-events: none;
+    }
+
+    .kpi-card strong {
+      font-size: 28px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .kpi-card small {
+      color: #9bc9ff;
+      font-size: 12px;
+    }
+
+    .dashboard-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: stretch;
+    }
+
+    .panel {
+      border-radius: 24px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.74), rgba(15, 23, 42, 0.54));
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      min-height: 160px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .panel.tall {
+      min-height: 240px;
+    }
+
+    .hero-panel h3 {
+      font-size: clamp(24px, 2.6vw, 36px);
+      margin: 12px 0 10px;
+    }
+
+    .hero-panel p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 52ch;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.15);
+      color: #cfe3ff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .stats-panel {
+      display: grid;
+      gap: 12px;
+      align-content: center;
+    }
+
+    .mini-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .mini-stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .mini-stat-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .content-panel {
+      flex: 1;
+      min-height: 0;
+    }
+
+    .content-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      height: 100%;
+    }
+
+    .content-card {
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .content-card h4 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .content-card p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .footer-nav {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .mobile-only-nav {
+      display: none;
+    }
+
+    .footer-nav-btn {
+      min-height: 48px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-secondary);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .footer-nav-btn:hover {
+      border-color: rgba(37, 99, 235, 0.3);
+      background: rgba(37, 99, 235, 0.08);
+    }
+
+    .footer-nav-btn.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      border-color: transparent;
+    }
+
+    .premium-sidebar {
+      width: 288px;
+      flex-basis: 288px;
+      background: linear-gradient(180deg, rgba(10, 16, 34, 0.92), rgba(7, 11, 26, 0.92));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 0 40px rgba(37,99,235,0.08);
+    }
+
+    .dashboard-sidebar {
+      transition: width 0.28s ease, padding 0.28s ease, transform 0.28s ease;
+    }
+
+    .dashboard-sidebar.collapsed {
+      width: 92px;
+      flex-basis: 92px;
+      padding: 14px 10px;
+    }
+
+    .dashboard-sidebar.collapsed .sidebar-sub,
+    .dashboard-sidebar.collapsed .sidebar-item span,
+    .dashboard-sidebar.collapsed .sidebar-section-title {
+      display: none;
+    }
+
+    .dashboard-sidebar.collapsed .sidebar-item {
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .dashboard-sidebar.collapsed .sidebar-item i {
+      width: auto;
+    }
+
+    .sidebar-section-title {
+      margin: 14px 0 8px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(203, 213, 225, 0.55);
+    }
+
+    .premium-topbar {
+      gap: 12px;
+      padding: 16px 18px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      pointer-events: none;
+    }
+
+    .topbar-search {
+      position: relative;
+    }
+
+    .topbar-search input {
+      padding-left: 40px;
+      min-height: 50px;
+      border-radius: 16px;
+    }
+
+    .admin-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      font-weight: 800;
+    }
+
+    .admin-content {
+      overflow-y: auto;
+      padding-right: 10px;
+      scrollbar-gutter: stable;
+    }
+
+    .admin-analytics-grid,
+    .admin-grid,
+    .action-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .admin-analytics-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-bottom: 14px;
+    }
+
+    .admin-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .full-span {
+      grid-column: 1 / -1;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section-head h4 {
+      font-size: 18px;
+    }
+
+    .status-pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.05);
+      color: var(--text-secondary);
+    }
+
+    .status-pill.blue { color: #b9d6ff; background: rgba(37,99,235,0.14); }
+    .status-pill.green { color: #bdf6dc; background: rgba(16,185,129,0.14); }
+    .status-pill.amber { color: #ffdca8; background: rgba(245,158,11,0.14); }
+    .status-pill.purple { color: #e0c9ff; background: rgba(139,92,246,0.14); }
+
+    .chart-shell {
+      min-height: 220px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(148,163,184,0.1);
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pie-chart {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .donut {
+      width: 152px;
+      height: 152px;
+      border-radius: 50%;
+      background: conic-gradient(var(--primary) 0 58%, var(--accent) 58% 84%, #f59e0b 84% 100%);
+      position: relative;
+      box-shadow: 0 0 30px rgba(37,99,235,0.18);
+    }
+
+    .donut::after {
+      content: '';
+      position: absolute;
+      inset: 22px;
+      border-radius: 50%;
+      background: #0b1224;
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 14px;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+
+    .dot.blue { background: var(--primary); }
+    .dot.teal { background: var(--accent); }
+    .dot.amber { background: #f59e0b; }
+
+    .bar-chart {
+      height: 220px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      align-items: end;
+      gap: 12px;
+      padding: 18px;
+    }
+
+    .bar-chart span {
+      display: block;
+      border-radius: 12px 12px 6px 6px;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+      min-height: 24px;
+      box-shadow: 0 12px 24px rgba(37,99,235,0.18);
+    }
+
+    .queue-list, .timeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .queue-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(148,163,184,0.1);
+    }
+
+    .queue-card p {
+      color: var(--text-secondary);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .queue-card.high { border-color: rgba(239,68,68,0.25); }
+    .queue-card.medium { border-color: rgba(245,158,11,0.25); }
+    .queue-card.low { border-color: rgba(16,185,129,0.25); }
+
+    .queue-actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .queue-actions button, .action-card {
+      border: none;
+      border-radius: 12px;
+      min-height: 36px;
+      padding: 0 12px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .queue-actions .ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(148,163,184,0.08);
+    }
+
+    .timeline-item span {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .dept-table {
+      display: grid;
+      gap: 10px;
+    }
+
+    .dept-row {
+      display: grid;
+      grid-template-columns: 1.2fr 0.6fr 0.6fr 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .dept-row.head {
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .meter {
+      display: block;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(148,163,184,0.14);
+      overflow: hidden;
+    }
+
+    .meter i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .ai-card p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .action-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .action-card {
+      min-height: 68px;
+      padding: 16px;
+      font-size: 14px;
+      text-align: left;
+      background: linear-gradient(135deg, rgba(37,99,235,0.25), rgba(20,184,166,0.18));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.18);
+    }
+
+    .dashboard-sidebar::-webkit-scrollbar,
+    .dashboard-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .dashboard-sidebar::-webkit-scrollbar-thumb,
+    .dashboard-content::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+      border-radius: 999px;
+      border: 2px solid rgba(7, 11, 26, 0.92);
+    }
+
+    .dashboard-sidebar::-webkit-scrollbar-track,
+    .dashboard-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 999px;
+    }
+
+    @media (max-width: 900px) {
+      .app-shell {
+        flex-direction: column;
+      }
+
+      .dashboard-sidebar {
+        width: 100%;
+        flex-basis: auto;
+        max-height: 180px;
+      }
+
+      .sidebar-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .app-grid,
+      .content-row {
+        grid-template-columns: 1fr;
+      }
+
+      .app-shell {
+        height: calc(100vh - 20px);
+        padding: 16px;
+      }
+
+      .admin-analytics-grid,
+      .admin-grid,
+      .action-grid,
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-nav {
+        display: grid;
+      }
+
+      .dashboard-sidebar {
+        position: fixed;
+        inset: 14px auto 14px 14px;
+        z-index: 30;
+        transform: translateX(-120%);
+        width: min(88vw, 320px);
+        flex-basis: auto;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+      }
+
+      .dashboard-sidebar.open {
+        transform: translateX(0);
+      }
+
+      .dashboard-main {
+        width: 100%;
+      }
+
+      .dashboard-content {
+        padding-right: 0;
+      }
+
+      .dashboard-sidebar::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.35);
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    @media (min-width: 901px) {
+      .footer-nav {
+        display: none;
+      }
+      .mobile-only-nav {
+        display: none;
+      }
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9998;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      max-width: 460px;
+      width: 90%;
+      text-align: center;
+      backdrop-filter: blur(20px);
+      animation: modal-pop 0.4s ease;
+    }
+
+    @keyframes modal-pop {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .modal-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .modal-text {
+      color: var(--text-secondary);
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    .topbar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.42);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 88px 20px 20px;
+      z-index: 9997;
+    }
+
+    .topbar-overlay.active {
+      display: flex;
+    }
+
+    .topbar-sheet {
+      width: min(420px, 100%);
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      background: linear-gradient(180deg, rgba(17, 24, 39, 0.96), rgba(15, 23, 42, 0.94));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      padding: 20px;
+      animation: sheet-slide 0.28s ease;
+    }
+
+    .topbar-sheet.profile-sheet {
+      width: min(460px, 100%);
+    }
+
+    @keyframes sheet-slide {
+      from { opacity: 0; transform: translateY(-12px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .topbar-sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .sheet-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .sheet-subtitle {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .sheet-close {
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sheet-close:hover {
+      transform: translateY(-1px);
+      border-color: rgba(37, 99, 235, 0.35);
+    }
+
+    .notification-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .notification-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+    }
+
+    .notification-item .note-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: white;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+    }
+
+    .notification-item .note-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .notification-item .note-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .notification-item .note-time {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }
+
+    .profile-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 18px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .profile-head {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .profile-avatar-lg {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 800;
+      font-size: 22px;
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.25);
+    }
+
+    .profile-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .profile-role {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .profile-hero {
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(37, 99, 235, 0.18);
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(20, 184, 166, 0.06));
+    }
+
+    .profile-hero-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .profile-hero-copy {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .profile-contact-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .contact-item {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+    }
+
+    .contact-item i {
+      color: var(--accent);
+      font-size: 15px;
+    }
+
+    .contact-item span {
+      display: block;
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .contact-item strong {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .contact-item button {
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .profile-section {
+      display: grid;
+      gap: 12px;
+    }
+
+    .timeline-list {
+      display: grid;
+      gap: 12px;
+      padding-left: 4px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 12px 1fr;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .timeline-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-top: 5px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.08);
+    }
+
+    .timeline-item strong,
+    .portfolio-card h5,
+    .cert-card strong {
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .timeline-item p,
+    .timeline-item span,
+    .portfolio-card p,
+    .cert-card span {
+      color: var(--text-secondary);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .skill-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .skill-row {
+      display: grid;
+      gap: 8px;
+    }
+
+    .skill-row-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .skill-track {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+
+    .skill-track span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      animation: skill-fill 1.1s ease;
+    }
+
+    @keyframes skill-fill {
+      from { width: 0; }
+    }
+
+    .portfolio-cards,
+    .cert-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .portfolio-card,
+    .cert-card {
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      display: grid;
+      gap: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .portfolio-card:hover,
+    .cert-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(37, 99, 235, 0.3);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+    }
+
+    .portfolio-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-chip {
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--text);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+    }
+
+    .cert-card i {
+      font-size: 18px;
+      color: var(--accent);
+    }
+
+    .resume-preview {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+    }
+
+    body[data-theme="light"] .profile-hero,
+    body[data-theme="light"] .contact-item,
+    body[data-theme="light"] .portfolio-card,
+    body[data-theme="light"] .cert-card,
+    body[data-theme="light"] .resume-preview {
+      background: rgba(255, 255, 255, 0.94);
+      border-color: rgba(148, 163, 184, 0.18);
+    }
+
+    body[data-theme="light"] .timeline-item strong,
+    body[data-theme="light"] .portfolio-card h5,
+    body[data-theme="light"] .cert-card strong,
+    body[data-theme="light"] .skill-row-head,
+    body[data-theme="light"] .contact-item strong,
+    body[data-theme="light"] .resume-preview strong {
+      color: #0f172a;
+    }
+
+    .mini-stat {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+    }
+
+    .mini-stat span {
+      display: block;
+    }
+
+    .mini-stat .mini-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .mini-stat .mini-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    body[data-theme="light"] .topbar-overlay {
+      background: rgba(148, 163, 184, 0.26);
+    }
+
+    body[data-theme="light"] .topbar-sheet {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.98));
+      border-color: rgba(148, 163, 184, 0.2);
+    }
+
+    body[data-theme="light"] .notification-item,
+    body[data-theme="light"] .profile-card,
+    body[data-theme="light"] .mini-stat {
+      background: rgba(255, 255, 255, 0.92);
+      border-color: rgba(148, 163, 184, 0.2);
+    }
+
+    body[data-theme="light"] .sheet-title,
+    body[data-theme="light"] .profile-name,
+    body[data-theme="light"] .note-title,
+    body[data-theme="light"] .mini-stat .mini-value {
+      color: #0f172a;
+    }
+
+    body[data-theme="light"] .auth-toolbar-note {
+      color: #475569;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 1024px) {
+      .container {
+        grid-template-columns: 1fr;
+        height: calc(100vh - 24px);
+      }
+
+      .left-section {
+        display: none;
+      }
+
+      .right-section {
+        width: 100%;
+        height: 100%;
+        padding: 16px;
+      }
+
+      .auth-card {
+        padding: 22px 20px;
+        max-height: none;
+        overflow: hidden;
+      }
+
+      .auth-container {
+        max-width: 560px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      body {
+        overflow: auto;
+        min-height: 100vh;
+      }
+
+      .app-shell {
+        height: auto;
+        min-height: calc(100vh - 28px);
+        overflow-y: auto;
+      }
+
+      .dashboard-main {
+        min-height: 0;
+      }
+
+      .dashboard-content {
+        overflow-y: visible;
+        padding-bottom: 16px;
+      }
+
+      .mini-calendar {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        overflow: auto;
+        padding: 10px;
+      }
+
+      .right-section {
+        padding: 10px;
+        width: 100%;
+        height: auto;
+        min-height: 100%;
+        overflow: visible;
+      }
+
+      .auth-card {
+        padding: 18px 14px;
+        border-radius: 24px;
+        max-height: none;
+        overflow: visible;
+      }
+
+      .auth-container {
+        max-width: 100%;
+      }
+
+      .logo {
+        font-size: 30px;
+      }
+
+      .form-input {
+        font-size: 15px;
+        min-height: 46px;
+      }
+
+      .btn-primary, .btn-secondary {
+        font-size: 14px;
+      }
+
+      .auth-title {
+        font-size: 24px;
+      }
+
+      .auth-subtitle {
+        font-size: 12px;
+      }
+
+      .app-shell {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+        padding: 12px;
+      }
+
+      .dashboard-sidebar {
+        width: 100%;
+        flex-basis: auto;
+      }
+
+      .dashboard-main {
+        overflow: visible;
+      }
+
+      .dashboard-content {
+        overflow: visible;
+      }
+    }
+
+    @keyframes float-emoji {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes float-blob {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(0, -18px, 0) scale(1.08); }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animated">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+  </div>
+
+  <div class="container">
+    <div class="left-section">
+      <div class="left-content">
+        <div class="logo">CLMS</div>
+        <div class="tagline">Campus Life Management System</div>
+
+        <div class="illustration-card">
+          <div style="font-size: 64px; margin: 30px 0; animation: float-emoji 3s ease-in-out infinite;">🏫</div>
+          <div style="font-size: 14px; color: var(--text-secondary); font-weight: 500;">Smart Campus Management Platform</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-item">
+            <div class="stat-number">20K+</div>
+            <div class="stat-label">Students</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Faculty</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">95%</div>
+            <div class="stat-label">Automation</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Colleges</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-section">
+      <div class="auth-container">
+        <div class="auth-card">
+          <div class="auth-card-content">
+            <div class="auth-toolbar">
+              <div class="auth-toolbar-note">Authentication Mode</div>
+              <button class="auth-theme-switcher" type="button" data-theme-toggle aria-label="Toggle light or dark mode">
+                <i class="fa-solid fa-circle-half-stroke"></i>
+                <span>Mode</span>
+              </button>
+            </div>
+            <div class="tab-group">
+              <button class="tab-btn active" data-tab="student">👤 Student</button>
+              <button class="tab-btn" data-tab="college">🏛️ College</button>
+            </div>
+
+            <div id="login-section">
+              <div class="auth-form active" data-form="student-login">
+                <div class="auth-header">
+                  <h1 class="auth-title">Welcome Back</h1>
+                  <p class="auth-subtitle">Sign in to your student account</p>
+                </div>
+
+                <form id="studentLoginForm">
+                  <div class="form-group">
+                    <label class="form-label">Email / Roll Number</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">📧</span>
+                      <input type="text" class="form-input" placeholder="student@university.edu" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">🔒</span>
+                      <input type="password" class="form-input password-input" placeholder="••••••••" required>
+                      <button type="button" class="password-toggle">👁️</button>
+                    </div>
+                  </div>
+
+                  <div class="checkbox-group">
+                    <input type="checkbox" class="checkbox" id="rememberMe">
+                    <label for="rememberMe" class="checkbox-label">Remember me</label>
+                  </div>
+
+                  <button type="submit" class="btn-primary">Continue to Dashboard</button>
+                </form>
+
+                <div class="divider">
+                  <div class="divider-line"></div>
+                  <div class="divider-text">OR</div>
+                  <div class="divider-line"></div>
+                </div>
+
+                <button class="btn-secondary">🔵 Continue with Google</button>
+
+                <div class="link-text">
+                  Don't have an account? <a href="#" data-action="switch-to-signup">Sign up</a>
+                </div>
+
+                <div class="link-text">
+                  <a href="#" data-action="forgot-password">Forgot password?</a>
+                </div>
+              </div>
+
+              <div class="auth-form" data-form="college-login">
+                <div class="auth-header">
+                  <h1 class="auth-title">College Admin Login</h1>
+                  <p class="auth-subtitle">Sign in with your official institution email, code, and password</p>
+                </div>
+
+                <form id="collegeLoginForm">
+                  <div class="form-group">
+                    <label class="form-label">Institution Email</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">📧</span>
+                      <input type="email" class="form-input" placeholder="admin@college.edu" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">🔒</span>
+                      <input type="password" class="form-input password-input" placeholder="••••••••" required>
+                      <button type="button" class="password-toggle">👁️</button>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Institution Code</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">🏫</span>
+                      <input type="text" class="form-input" placeholder="INST-12345" required>
+                    </div>
+                  </div>
+
+                  <div class="checkbox-group">
+                    <input type="checkbox" class="checkbox" id="rememberMe2">
+                    <label for="rememberMe2" class="checkbox-label">Remember me</label>
+                  </div>
+
+                  <button type="submit" class="btn-primary">College Login</button>
+                </form>
+
+                <div class="divider">
+                  <div class="divider-line"></div>
+                  <div class="divider-text">OR</div>
+                  <div class="divider-line"></div>
+                </div>
+
+                <button class="btn-secondary">🔵 Continue with Google</button>
+
+                <div class="link-text">
+                  New institution? <a href="#" data-action="switch-to-signup">Register</a>
+                </div>
+
+                <div class="link-text">
+                  <a href="#" data-action="forgot-password">Forgot password?</a>
+                </div>
+
+                <div class="link-text" style="margin-top: 8px; opacity: 0.85;">
+                  Demo college login: <strong>admin@college.edu</strong> / <strong>College@123</strong> / <strong>INST-12345</strong>
+                </div>
+              </div>
+            </div>
+
+            <div id="signup-section" style="display: none;">
+              <div class="auth-form active" data-form="student-signup">
+                <div class="auth-header">
+                  <h1 class="auth-title">Create Account</h1>
+                  <p class="auth-subtitle">Join thousands of students</p>
+                </div>
+
+                <form id="studentSignupForm">
+                  <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">👤</span>
+                      <input type="text" class="form-input" placeholder="John Doe" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">📧</span>
+                      <input type="email" class="form-input" placeholder="john@university.edu" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Roll Number</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">🎓</span>
+                      <input type="text" class="form-input" placeholder="CS2023001" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">📱</span>
+                      <input type="tel" class="form-input" placeholder="+91 98765 43210" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">🔒</span>
+                      <input type="password" class="form-input password-input strength-check" placeholder="••••••••" required>
+                      <button type="button" class="password-toggle">👁️</button>
+                    </div>
+                    <div class="password-strength">
+                      <div class="strength-bar"></div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">🔒</span>
+                      <input type="password" class="form-input" placeholder="••••••••" required>
+                      <button type="button" class="password-toggle">👁️</button>
+                    </div>
+                  </div>
+
+                  <div class="checkbox-group">
+                    <input type="checkbox" class="checkbox" required>
+                    <label class="checkbox-label">I agree to <a href="#">Terms & Conditions</a></label>
+                  </div>
+
+                  <button type="submit" class="btn-primary">Create Student Account</button>
+                </form>
+
+                <div class="link-text">
+                  Already have an account? <a href="#" data-action="switch-to-login">Sign in</a>
+                </div>
+              </div>
+
+              <div class="auth-form" data-form="college-signup">
+                <div class="auth-header">
+                  <h1 class="auth-title">Register Institution</h1>
+                  <p class="auth-subtitle">Set up your college account</p>
+                </div>
+
+                <form id="collegeSignupForm">
+                  <div class="form-group">
+                    <label class="form-label">Institution Name</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">🏫</span>
+                      <input type="text" class="form-input" placeholder="XYZ University" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Admin Name</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">👤</span>
+                      <input type="text" class="form-input" placeholder="Admin Name" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Official Email</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">📧</span>
+                      <input type="email" class="form-input" placeholder="admin@college.edu" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Institution Code</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">🆔</span>
+                      <input type="text" class="form-input" placeholder="INST-12345" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">🔒</span>
+                      <input type="password" class="form-input password-input strength-check" placeholder="••••••••" required>
+                      <button type="button" class="password-toggle">👁️</button>
+                    </div>
+                    <div class="password-strength">
+                      <div class="strength-bar"></div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    <div class="input-wrapper">
+                      <span class="input-icon">🔒</span>
+                      <input type="password" class="form-input" placeholder="••••••••" required>
+                      <button type="button" class="password-toggle">👁️</button>
+                    </div>
+                  </div>
+
+                  <div class="checkbox-group">
+                    <input type="checkbox" class="checkbox" required>
+                    <label class="checkbox-label">I agree to <a href="#">Terms & Conditions</a></label>
+                  </div>
+
+                  <button type="submit" class="btn-primary">Register Institution</button>
+                </form>
+
+                <div class="link-text">
+                  Already registered? <a href="#" data-action="switch-to-login">Sign in</a>
+                </div>
+              </div>
+            </div>
+
+            <div id="forgot-password-section" style="display: none;">
+              <div class="auth-header">
+                <h1 class="auth-title">Reset Password</h1>
+                <p class="auth-subtitle">Enter your email to receive OTP</p>
+              </div>
+
+              <form id="forgotPasswordForm">
+                <div class="form-group">
+                  <label class="form-label">Email Address</label>
+                  <div class="input-wrapper">
+                    <span class="input-icon">📧</span>
+                    <input type="email" class="form-input" placeholder="your@email.com" required>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Send OTP</button>
+              </form>
+
+              <div class="link-text">
+                <a href="#" data-action="back-to-login">Back to login</a>
+              </div>
+            </div>
+
+            <div id="otp-section" style="display: none;">
+              <div class="auth-header">
+                <h1 class="auth-title">Verify OTP</h1>
+                <p class="auth-subtitle">Enter the 6-digit code sent to your email</p>
+              </div>
+
+              <form id="otpForm">
+                <div class="form-group">
+                  <label class="form-label">OTP Code</label>
+                  <div class="input-wrapper">
+                    <span class="input-icon">🔐</span>
+                    <input type="text" class="form-input" placeholder="000000" maxlength="6" required>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Verify OTP</button>
+              </form>
+
+              <div class="link-text">
+                <a href="#" data-action="back-to-forgot">Send new OTP</a>
+              </div>
+            </div>
+
+            <div id="reset-password-section" style="display: none;">
+              <div class="auth-header">
+                <h1 class="auth-title">Create New Password</h1>
+                <p class="auth-subtitle">Set a strong password for your account</p>
+              </div>
+
+              <form id="resetPasswordForm">
+                <div class="form-group">
+                  <label class="form-label">New Password</label>
+                  <div class="input-wrapper">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" class="form-input password-input strength-check" placeholder="••••••••" required>
+                    <button type="button" class="password-toggle">👁️</button>
+                  </div>
+                  <div class="password-strength">
+                    <div class="strength-bar"></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Confirm Password</label>
+                  <div class="input-wrapper">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" class="form-input" placeholder="••••••••" required>
+                    <button type="button" class="password-toggle">👁️</button>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Reset Password</button>
+              </form>
+
+              <div class="link-text">
+                <a href="#" data-action="back-to-login">Back to login</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="app-shell" id="studentDashboard" style="display:none;">
+    <aside class="dashboard-sidebar">
+      <div class="sidebar-brand">
+        <div class="logo" style="font-size:34px;margin:0;">CLMS</div>
+        <div class="sidebar-sub">Student Portal</div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="sidebar-item active"><i class="fa-solid fa-grid-2"></i><span>Dashboard</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-book"></i><span>Courses</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-file-pen"></i><span>Assignments</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-sheet-plastic"></i><span>Marksheet</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-briefcase"></i><span>Internships</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-graduation-cap"></i><span>Learning</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-bell"></i><span>Notifications</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-book-open-reader"></i><span>Library</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-calendar-days"></i><span>Schedule</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-id-card"></i><span>Portfolio</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+        <button class="sidebar-item" data-page="logout"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></button>
+      </nav>
+    </aside>
+    <div class="dashboard-main">
+      <header class="dashboard-topbar">
+        <div class="topbar-search"><span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span><input type="text" placeholder="Search courses, tasks, notices"></div>
+        <div class="topbar-actions"><button class="footer-nav-btn theme-toggle" type="button" title="Notifications" data-notify-toggle><i class="fa-regular fa-bell"></i></button><button class="footer-nav-btn theme-toggle" type="button" title="Theme" data-theme-toggle><i class="fa-solid fa-sun"></i></button><button class="footer-nav-btn" type="button" data-profile-toggle>Student</button></div>
+      </header>
+      <main class="dashboard-content">
+        <section class="dash-hero">
+          <div class="hero-badge">Student View</div>
+          <h3>Welcome back, Student 👋</h3>
+          <p>Here’s what’s happening in your academic journey today.</p>
+        </section>
+        <section class="kpi-grid">
+          <div class="kpi-card"><span>CGPA</span><strong>8.7</strong><small>+0.3 this semester</small></div>
+          <div class="kpi-card"><span>Attendance %</span><strong>94%</strong><small>Above target</small></div>
+          <div class="kpi-card"><span>Credits</span><strong>78</strong><small>12 left to graduate</small></div>
+          <div class="kpi-card"><span>Pending</span><strong>3</strong><small>Due this week</small></div>
+        </section>
+        <section class="dashboard-grid">
+          <div class="panel tall"><h4>Attendance Overview</h4><div class="chart-shell pie-chart"><div class="donut" style="background:conic-gradient(var(--accent) 0 94%, rgba(255,255,255,0.1) 94% 100%);"></div><div class="chart-legend"><span><i class="dot teal"></i> Present</span><span><i class="dot amber"></i> Late</span></div></div></div>
+          <div class="panel tall"><h4>Performance Analytics</h4><div class="bar-chart"><span style="height:38%"></span><span style="height:52%"></span><span style="height:58%"></span><span style="height:74%"></span><span style="height:66%"></span><span style="height:86%"></span><span style="height:78%"></span></div></div>
+          <div class="panel"><h4>Upcoming Classes</h4><p>Maths · 10:00 AM · Room 204</p><p>DSA · 12:00 PM · Lab 2</p></div>
+          <div class="panel"><h4>Recent Assignments</h4><p>DBMS · Due Tomorrow</p><p>AI Lab · Due Friday</p></div>
+          <div class="panel"><h4>Notifications</h4><p>Exam schedule updated.</p><p>Library books due soon.</p></div>
+          <div class="panel"><h4>Learning Progress</h4><p>Frontend Course 72%</p><p>Cloud Basics 44%</p></div>
+          <div class="panel"><h4>Recommended Internships</h4><p>OpenAI Lab · 92% skill match</p><p>BuildCo · 88% skill match</p></div>
+          <div class="panel"><h4>Quick Actions</h4><div class="action-grid"><button class="action-card">Submit Assignment</button><button class="action-card">View Marks</button><button class="action-card">Attendance</button><button class="action-card">Learning Portal</button></div></div>
+        </section>
+      </main>
+      <nav class="footer-nav mobile-only-nav"><button class="footer-nav-btn active" type="button">Home</button><button class="footer-nav-btn" type="button">Notices</button><button class="footer-nav-btn" type="button">Tasks</button><button class="footer-nav-btn" type="button">Profile</button></nav>
+    </div>
+  </div>
+
+  <div class="app-shell admin-shell" id="adminDashboard" style="display:none;">
+    <aside class="dashboard-sidebar premium-sidebar">
+      <div class="sidebar-brand">
+        <div class="logo" style="font-size:34px;margin:0;">CLMS</div>
+        <div class="sidebar-sub">Admin Console</div>
+      </div>
+      <div class="sidebar-section-title">Overview</div>
+      <nav class="sidebar-nav">
+        <button class="sidebar-item active"><i class="fa-solid fa-grid-2"></i><span>Dashboard</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-user-check"></i><span>Admissions</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-user-group"></i><span>Students</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-chalkboard-user"></i><span>Faculty</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-building-columns"></i><span>Departments</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-book-open"></i><span>Courses</span></button>
+      </nav>
+      <div class="sidebar-section-title">Operations</div>
+      <nav class="sidebar-nav">
+        <button class="sidebar-item"><i class="fa-solid fa-clipboard-check"></i><span>Examinations</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-bullhorn"></i><span>Notices</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-circle-check"></i><span>Approvals</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-chart-line"></i><span>Reports</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+        <button class="sidebar-item"><i class="fa-solid fa-server"></i><span>System Logs</span></button>
+        <button class="sidebar-item" data-page="logout"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></button>
+      </nav>
+    </aside>
+    <div class="dashboard-main">
+      <header class="dashboard-topbar premium-topbar">
+        <div class="topbar-search">
+          <span class="search-icon">⌕</span>
+          <input type="text" placeholder="Search students, faculty, departments, reports">
+        </div>
+        <div class="topbar-actions">
+          <button class="footer-nav-btn" type="button" title="Notifications" data-notify-toggle><i class="fa-regular fa-bell"></i></button>
+          <button class="footer-nav-btn" type="button" title="Theme" data-theme-toggle><i class="fa-solid fa-moon"></i></button>
+          <button class="footer-nav-btn" type="button" title="Quick actions"><i class="fa-solid fa-bolt"></i></button>
+          <div class="admin-avatar">A</div>
+        </div>
+      </header>
+      <main class="dashboard-content admin-content">
+        <section class="dash-hero admin-hero">
+          <div class="hero-badge">Admin View</div>
+          <h3>Welcome back, Admin 👋</h3>
+          <p>Here’s what’s happening across your institution today.</p>
+        </section>
+
+        <section class="kpi-grid admin-kpis">
+          <div class="kpi-card"><span>Total Students</span><strong>12,480</strong><small>+8.4% this month</small></div>
+          <div class="kpi-card"><span>Total Faculty</span><strong>642</strong><small>+3.1% this month</small></div>
+          <div class="kpi-card"><span>Departments</span><strong>18</strong><small>2 under review</small></div>
+          <div class="kpi-card"><span>Active Courses</span><strong>146</strong><small>+12 added</small></div>
+          <div class="kpi-card"><span>Pending Approvals</span><strong>23</strong><small>Needs attention</small></div>
+        </section>
+
+        <section class="admin-analytics-grid">
+          <div class="panel analytics-panel">
+            <div class="section-head"><h4>Admission Overview</h4><span class="status-pill green">Live</span></div>
+            <div class="chart-shell pie-chart">
+              <div class="donut"></div>
+              <div class="chart-legend">
+                <span><i class="dot blue"></i> Approved</span>
+                <span><i class="dot teal"></i> Pending</span>
+                <span><i class="dot amber"></i> Rejected</span>
+              </div>
+            </div>
+          </div>
+          <div class="panel analytics-panel">
+            <div class="section-head"><h4>Institution Activity</h4><span class="status-pill blue">Weekly</span></div>
+            <div class="bar-chart">
+              <span style="height:34%"></span><span style="height:58%"></span><span style="height:42%"></span><span style="height:74%"></span><span style="height:66%"></span><span style="height:92%"></span><span style="height:78%"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="admin-grid">
+          <div class="panel">
+            <div class="section-head"><h4>Approval Queue</h4><span class="status-pill amber">8 urgent</span></div>
+            <div class="queue-list">
+              <article class="queue-card high"><div><strong>Faculty Request</strong><p>Dr. Mehta - Leave approval</p></div><div class="queue-actions"><button>Approve</button><button class="ghost">Reject</button></div></article>
+              <article class="queue-card medium"><div><strong>Budget Approval</strong><p>Lab equipment allocation</p></div><div class="queue-actions"><button>Approve</button><button class="ghost">Reject</button></div></article>
+              <article class="queue-card low"><div><strong>Course Update</strong><p>Curriculum revision request</p></div><div class="queue-actions"><button>Approve</button><button class="ghost">Reject</button></div></article>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="section-head"><h4>Recent Notices</h4><span class="status-pill blue">Timeline</span></div>
+            <div class="timeline">
+              <div class="timeline-item"><span>10:30</span><p>Examination circular released for all departments.</p></div>
+              <div class="timeline-item"><span>09:15</span><p>Timetable update published for next week.</p></div>
+              <div class="timeline-item"><span>Yesterday</span><p>Fee reminder notification sent to students.</p></div>
+            </div>
+          </div>
+          <div class="panel full-span">
+            <div class="section-head"><h4>Department Overview</h4><span class="status-pill green">All units</span></div>
+            <div class="dept-table">
+              <div class="dept-row head"><span>Department</span><span>Students</span><span>Faculty</span><span>Utilization</span></div>
+              <div class="dept-row"><span>CSE</span><span>920</span><span>42</span><span><i class="meter"><i style="width:82%"></i></i></span></div>
+              <div class="dept-row"><span>ECE</span><span>680</span><span>31</span><span><i class="meter"><i style="width:68%"></i></i></span></div>
+              <div class="dept-row"><span>MBA</span><span>410</span><span>18</span><span><i class="meter"><i style="width:46%"></i></i></span></div>
+            </div>
+          </div>
+          <div class="panel ai-card full-span">
+            <div class="section-head"><h4>AI Admin Assistant</h4><span class="status-pill purple">Smart insights</span></div>
+            <p>Ask about approvals, reports, admissions, or notices. The assistant can summarize operational alerts and suggest next actions.</p>
+            <button class="btn-primary" type="button">Ask AI Assistant</button>
+          </div>
+          <div class="panel full-span">
+            <div class="section-head"><h4>Quick Actions</h4><span class="status-pill blue">Fast lane</span></div>
+            <div class="action-grid">
+              <button class="action-card">Add Notice</button>
+              <button class="action-card">Add Department</button>
+              <button class="action-card">Generate Report</button>
+              <button class="action-card">Manage Users</button>
+              <button class="action-card">Add Course</button>
+              <button class="action-card">System Settings</button>
+            </div>
+          </div>
+        </section>
+      </main>
+      <nav class="footer-nav mobile-only-nav"><button class="footer-nav-btn active" type="button">Home</button><button class="footer-nav-btn" type="button">Reports</button><button class="footer-nav-btn" type="button">Users</button><button class="footer-nav-btn" type="button">Logs</button></nav>
+    </div>
+  </div>
+
+  <div class="modal" id="successModal">
+    <div class="modal-content">
+      <div class="modal-icon">✅</div>
+      <h2 class="modal-title">Success!</h2>
+      <p class="modal-text" id="modalMessage">Operation completed successfully.</p>
+      <button class="btn-primary" onclick="closeModal()">Continue</button>
+    </div>
+  </div>
+
+  <div class="topbar-overlay" id="topbarOverlay" aria-hidden="true">
+    <div class="topbar-sheet" id="notificationSheet" role="dialog" aria-modal="true">
+      <div class="topbar-sheet-header">
+        <div>
+          <div class="sheet-title">Notifications</div>
+          <div class="sheet-subtitle">Latest updates for your dashboard</div>
+        </div>
+        <button class="sheet-close" type="button" data-topbar-close aria-label="Close notifications">×</button>
+      </div>
+      <div class="notification-list" id="notificationList"></div>
+    </div>
+    <div class="topbar-sheet profile-sheet" id="profileSheet" role="dialog" aria-modal="true" style="display:none;">
+      <div class="topbar-sheet-header">
+        <div>
+          <div class="sheet-title">Student Profile</div>
+          <div class="sheet-subtitle">Quick view of your account</div>
+        </div>
+        <button class="sheet-close" type="button" data-topbar-close aria-label="Close profile">×</button>
+      </div>
+      <div class="profile-card" id="profileCard"></div>
+    </div>
+  </div>
+
+  <script>
+    const themeToggleButtons = document.querySelectorAll('[data-theme-toggle]');
+    const themeKey = 'clms-theme';
+
+    function setTheme(theme) {
+      document.body.dataset.theme = theme;
+      localStorage.setItem(themeKey, theme);
+      themeToggleButtons.forEach((btn) => {
+        const icon = btn.querySelector('i');
+        if (!icon) return;
+        if (theme === 'light') {
+          icon.className = 'fa-solid fa-moon';
+        } else {
+          icon.className = 'fa-solid fa-sun';
+        }
+      });
+    }
+
+    const savedTheme = localStorage.getItem(themeKey) || 'dark';
+    setTheme(savedTheme);
+
+    themeToggleButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const next = document.body.dataset.theme === 'light' ? 'dark' : 'light';
+        setTheme(next);
+      });
+    });
+
+    const topbarOverlay = document.getElementById('topbarOverlay');
+    const notificationSheet = document.getElementById('notificationSheet');
+    const profileSheet = document.getElementById('profileSheet');
+    const notificationList = document.getElementById('notificationList');
+    const profileCard = document.getElementById('profileCard');
+    const topbarCloseButtons = document.querySelectorAll('[data-topbar-close]');
+
+    const notificationData = {
+      student: [
+        { icon: 'fa-solid fa-book-open', title: 'Assignment due tonight', text: 'DBMS lab submission closes at 11:59 PM.', time: '12 min ago' },
+        { icon: 'fa-solid fa-chalkboard-user', title: 'Live class starting soon', text: 'AI Basics with Prof. Mehta begins in 20 minutes.', time: '34 min ago' },
+        { icon: 'fa-solid fa-bullhorn', title: 'New notice published', text: 'Mid-sem exam timetable has been released.', time: '2 hr ago' }
+      ],
+      college: [
+        { icon: 'fa-solid fa-file-signature', title: 'Faculty approval pending', text: '3 requests are waiting for review in the approvals queue.', time: '8 min ago' },
+        { icon: 'fa-solid fa-calendar-check', title: 'Admissions update', text: '48 applications verified today and ready for next stage.', time: '26 min ago' },
+        { icon: 'fa-solid fa-bell-concierge', title: 'System notice', text: 'Weekly report export completed successfully.', time: '1 hr ago' }
+      ]
+    };
+
+    const studentProfileData = {
+      name: 'Priya Soloni',
+      course: 'Master Of Computer Application (MCA)',
+      location: 'Saharsa, Bihar',
+      phone: '+91 98765 43210',
+      email: 'priya.soloni@example.com',
+      address: 'Saharsa, Bihar, India',
+      summary: 'MCA student with hands-on experience in small academic projects involving web development and databases. Basic understanding of HTML, CSS, and Python. Eager to work in a supportive environment where I can develop my technical and problem-solving skills.',
+      education: [
+        { school: 'Bhupendra Narayan Mandal University', degree: 'Bachelor of Computer Application', year: '2021-2024' },
+        { school: 'Patna Women\'s College', degree: 'Master of Computer Application', year: '2024-Present' }
+      ],
+      skills: [
+        { label: 'Communication', value: 92 },
+        { label: 'C Language', value: 84 },
+        { label: 'HTML', value: 90 },
+        { label: 'Time Management', value: 88 }
+      ],
+      projects: [
+        {
+          title: 'Campus Life Management System',
+          desc: 'A campus portal for attendance, notices, schedules, and student workflows.',
+          tags: ['C', 'Java', 'Python', 'SQL']
+        },
+        {
+          title: 'Quick AI SaaS Application',
+          desc: 'A smart mini SaaS demo focused on AI-assisted productivity and workflow tools.',
+          tags: ['Python', 'HTML', 'CSS', 'SQL']
+        }
+      ],
+      certifications: [
+        'InternNexus TechHub Patna',
+        'NPTEL',
+        'AICTE VAANI (AI & Data Science)'
+      ],
+      achievements: [
+        { label: 'Projects', value: '02' },
+        { label: 'Certificates', value: '03' },
+        { label: 'Skills', value: '04' }
+      ]
+    };
+
+    function openTopbarPanel(mode) {
+      const role = dashboardState.role === 'college' ? 'college' : 'student';
+      topbarOverlay.classList.add('active');
+      topbarOverlay.setAttribute('aria-hidden', 'false');
+      notificationSheet.style.display = mode === 'notifications' ? 'block' : 'none';
+      profileSheet.style.display = mode === 'profile' ? 'block' : 'none';
+
+      if (mode === 'notifications') {
+        const items = notificationData[role].map((item) => `
+          <article class="notification-item">
+            <div class="note-icon"><i class="${item.icon}"></i></div>
+            <div>
+              <div class="note-title">${item.title}</div>
+              <div class="note-text">${item.text}</div>
+              <div class="note-time">${item.time}</div>
+            </div>
+          </article>
+        `).join('');
+        notificationList.innerHTML = items;
+      } else {
+        if (role === 'college') {
+          profileCard.innerHTML = `
+            <div class="profile-head">
+              <div class="profile-avatar-lg">A</div>
+              <div>
+                <div class="profile-name">Admin Profile</div>
+                <div class="profile-role">College Admin Account</div>
+              </div>
+            </div>
+            <div class="profile-grid">
+              <div class="mini-stat"><span class="mini-label">Status</span><span class="mini-value">Active</span></div>
+              <div class="mini-stat"><span class="mini-label">Role</span><span class="mini-value">Admin</span></div>
+              <div class="mini-stat"><span class="mini-label">Email</span><span class="mini-value">admin@college.edu</span></div>
+              <div class="mini-stat"><span class="mini-label">Last login</span><span class="mini-value">Today</span></div>
+            </div>
+          `;
+          return;
+        }
+        const s = studentProfileData;
+        profileCard.innerHTML = `
+          <div class="profile-head">
+            <div class="profile-avatar-lg">P</div>
+            <div>
+              <div class="profile-name">${s.name}</div>
+              <div class="profile-role">${s.course}</div>
+            </div>
+          </div>
+          <div class="profile-hero">
+            <div class="profile-hero-title">About Student</div>
+            <div class="profile-hero-copy">${s.summary}</div>
+          </div>
+          <div class="profile-grid">
+            ${s.achievements.map((item) => `<div class="mini-stat"><span class="mini-label">${item.label}</span><span class="mini-value">${item.value}</span></div>`).join('')}
+          </div>
+          <div class="profile-contact-grid">
+            <div class="contact-item"><i class="fa-solid fa-phone"></i><div><span>Phone Number</span><strong>${s.phone}</strong></div><button type="button" data-copy="${s.phone}">Copy</button></div>
+            <div class="contact-item"><i class="fa-solid fa-envelope"></i><div><span>Email</span><strong>${s.email}</strong></div><button type="button" data-copy="${s.email}">Copy</button></div>
+            <div class="contact-item"><i class="fa-solid fa-location-dot"></i><div><span>Address</span><strong>${s.address}</strong></div><button type="button" data-copy="${s.address}">Copy</button></div>
+            <div class="contact-item"><i class="fa-solid fa-share-nodes"></i><div><span>Social Profiles</span><strong>LinkedIn / Behance / GitHub</strong></div></div>
+          </div>
+          <div class="profile-section">
+            <div class="section-head"><h4>Education Timeline</h4><span class="status-pill blue">Timeline</span></div>
+            <div class="timeline-list">
+              ${s.education.map((edu, index) => `<div class="timeline-item"><div class="timeline-dot"></div><div><strong>${edu.school}</strong><p>${edu.degree}</p><span>${edu.year}</span></div></div>`).join('')}
+            </div>
+          </div>
+          <div class="profile-section">
+            <div class="section-head"><h4>Skills</h4><span class="status-pill green">Analytics</span></div>
+            <div class="skill-list">
+              ${s.skills.map((skill) => `<div class="skill-row"><div class="skill-row-head"><span>${skill.label}</span><strong>${skill.value}%</strong></div><div class="skill-track"><span style="width:${skill.value}%"></span></div></div>`).join('')}
+            </div>
+          </div>
+          <div class="profile-section">
+            <div class="section-head"><h4>Projects</h4><span class="status-pill purple">Portfolio</span></div>
+            <div class="portfolio-cards">
+              ${s.projects.map((project) => `<article class="portfolio-card"><div class="portfolio-icon"><i class="fa-solid fa-folder-open"></i></div><h5>${project.title}</h5><p>${project.desc}</p><div class="tag-row">${project.tags.map((tag) => `<span class="tag-chip">${tag}</span>`).join('')}</div><button class="btn-secondary" type="button">View Project</button></article>`).join('')}
+            </div>
+          </div>
+          <div class="profile-section">
+            <div class="section-head"><h4>Certifications</h4><span class="status-pill amber">Verified</span></div>
+            <div class="cert-list">
+              ${s.certifications.map((cert) => `<div class="cert-card"><i class="fa-solid fa-certificate"></i><strong>${cert}</strong><span>Verified certificate</span></div>`).join('')}
+            </div>
+          </div>
+          <div class="profile-section">
+            <div class="section-head"><h4>Resume</h4><span class="status-pill green">Preview</span></div>
+            <div class="resume-preview">
+              <div><strong>${s.name}</strong><p>${s.course}</p></div>
+              <button class="btn-primary" type="button" data-resume-preview>Open Resume Preview</button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function closeTopbarPanel() {
+      topbarOverlay.classList.remove('active');
+      topbarOverlay.setAttribute('aria-hidden', 'true');
+    }
+
+    const studentDashboard = document.getElementById('studentDashboard');
+    const adminDashboard = document.getElementById('adminDashboard');
+    const authRoot = document.querySelector('.container');
+    const roleKey = 'clms-role';
+    const sidebarToggles = document.querySelectorAll('[data-sidebar-toggle]');
+    const logoutButtons = document.querySelectorAll('#studentDashboard .sidebar-item, #adminDashboard .sidebar-item');
+    const dashboardState = { role: null, page: 'dashboard' };
+
+    function showDashboard(role) {
+      localStorage.setItem(roleKey, role);
+      authRoot.style.display = 'none';
+      studentDashboard.style.display = role === 'student' ? 'flex' : 'none';
+      adminDashboard.style.display = role === 'college' ? 'flex' : 'none';
+      document.body.dataset.role = role;
+      dashboardState.role = role;
+      dashboardState.page = 'dashboard';
+      bindSidebarNavigation();
+      renderDashboardPage('dashboard');
+    }
+
+    function showAuthShell() {
+      localStorage.removeItem(roleKey);
+      studentDashboard.style.display = 'none';
+      adminDashboard.style.display = 'none';
+      authRoot.style.display = 'grid';
+    }
+
+    function getDashboardRoot() {
+      return dashboardState.role === 'college' ? adminDashboard : studentDashboard;
+    }
+
+    function buildStudentPage(page) {
+      switch (page) {
+        case 'attendance':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Attendance</div><h3>Attendance Analytics</h3><p>Track your presence, subject risks, and monthly attendance pattern.</p></section>
+            <section class="dashboard-grid dashboard-section active">
+              <div class="panel tall"><div class="section-head"><h4>Monthly Attendance</h4><span class="status-pill green">Trend</span></div><div class="bar-chart"><span style="height:72%"></span><span style="height:80%"></span><span style="height:68%"></span><span style="height:90%"></span><span style="height:76%"></span><span style="height:84%"></span><span style="height:92%"></span></div></div>
+              <div class="panel"><div class="section-head"><h4>Risk List</h4><span class="status-pill amber">Follow-up</span></div><p>2 classes below 75%</p><p>1 subject needs follow-up</p></div>
+              <div class="panel"><div class="section-head"><h4>Subject Split</h4><span class="status-pill blue">This week</span></div><p>Core subjects are stable.</p><p>Electives need 2 more classes.</p></div>
+              <div class="panel"><div class="section-head"><h4>Attendance Notes</h4><span class="status-pill purple">Advisor</span></div><p>Discuss chronic absence before exams.</p><p>Review lab attendance with mentor.</p></div>
+            </section>`;
+        case 'courses':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Courses</div><h3>Your enrolled courses</h3><p>Open any course to see modules, faculty, and progress.</p></section>
+            <section class="dashboard-grid dashboard-section active">
+              <div class="panel"><div class="section-head"><h4>Data Structures</h4><span class="status-pill green">68%</span></div><p>Module 4 in progress</p></div>
+              <div class="panel"><div class="section-head"><h4>DBMS</h4><span class="status-pill blue">81%</span></div><p>Two labs completed</p></div>
+              <div class="panel"><div class="section-head"><h4>AI Basics</h4><span class="status-pill amber">47%</span></div><p>Next topic: search planning</p></div>
+              <div class="panel"><div class="section-head"><h4>Cloud Computing</h4><span class="status-pill purple">53%</span></div><p>Lab practice scheduled</p></div>
+            </section>`;
+        case 'assignments':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Assignments</div><h3>Assignment center</h3><p>See what is due, submitted, and under review.</p></section>
+            <section class="dashboard-grid dashboard-section active">
+              <div class="panel"><div class="section-head"><h4>DBMS Lab</h4><span class="status-pill amber">Due tomorrow</span></div><p>Schema design submission pending.</p></div>
+              <div class="panel"><div class="section-head"><h4>AI Mini Project</h4><span class="status-pill blue">Due Friday</span></div><p>Prototype and report required.</p></div>
+              <div class="panel"><div class="section-head"><h4>Web App Task</h4><span class="status-pill green">Submitted</span></div><p>Waiting for review.</p></div>
+              <div class="panel"><div class="section-head"><h4>Math Quiz</h4><span class="status-pill purple">Review</span></div><p>Instructor feedback pending.</p></div>
+            </section>`;
+        case 'marksheets':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Marksheet</div><h3>Marks summary</h3><p>Semester-wise scorecard and grade breakdown.</p></section>
+            <section class="dashboard-grid dashboard-section active">
+              <div class="panel tall"><div class="section-head"><h4>Semester Scores</h4><span class="status-pill blue">Graph</span></div><div class="bar-chart"><span style="height:48%"></span><span style="height:60%"></span><span style="height:76%"></span><span style="height:70%"></span><span style="height:84%"></span></div></div>
+              <div class="panel"><div class="section-head"><h4>Grade Breakdown</h4><span class="status-pill green">Summary</span></div><p>A in 6 subjects</p><p>B+ in 2 subjects</p></div>
+              <div class="panel"><div class="section-head"><h4>Semester GPA</h4><span class="status-pill amber">Stable</span></div><p>Sem 1: 8.1</p><p>Sem 2: 8.4</p><p>Sem 3: 8.7</p></div>
+              <div class="panel"><div class="section-head"><h4>Top Subjects</h4><span class="status-pill purple">Best</span></div><p>DBMS, AI Basics, Cloud Lab</p></div>
+            </section>`;
+        case 'internship-portal':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Internships</div><h3>Recommended internships</h3><p>Matches based on your skills and profile.</p></section>
+            <section class="dashboard-grid dashboard-section active">
+              <div class="panel"><div class="section-head"><h4>OpenAI Lab</h4><span class="status-pill green">92%</span></div><p>Product intern - Remote</p></div>
+              <div class="panel"><div class="section-head"><h4>BuildCo</h4><span class="status-pill blue">88%</span></div><p>Frontend intern - Hybrid</p></div>
+              <div class="panel"><div class="section-head"><h4>CloudNest</h4><span class="status-pill amber">81%</span></div><p>DevOps intern - Remote</p></div>
+              <div class="panel"><div class="section-head"><h4>NextStep</h4><span class="status-pill purple">76%</span></div><p>Data intern - Onsite</p></div>
+            </section>`;
+        case 'learning':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Learning</div><h3>Learning progress</h3><p>Track course completion, badges, and milestones.</p></section>
+            <section class="dashboard-grid dashboard-section active">
+              <div class="panel"><div class="section-head"><h4>Frontend</h4><span class="status-pill green">72%</span></div><p>Module 6 done</p></div>
+              <div class="panel"><div class="section-head"><h4>Cloud Basics</h4><span class="status-pill amber">44%</span></div><p>Need 3 more labs</p></div>
+              <div class="panel"><div class="section-head"><h4>AI Foundations</h4><span class="status-pill blue">61%</span></div><p>Quiz score improving</p></div>
+              <div class="panel"><div class="section-head"><h4>React Lab</h4><span class="status-pill purple">88%</span></div><p>Almost complete</p></div>
+            </section>`;
+        case 'notifications':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Notifications</div><h3>Recent updates</h3><p>Institution notices, exam updates, and events.</p></section>
+            <section class="dashboard-grid dashboard-section active">
+              <div class="panel"><div class="section-head"><h4>Exam timetable</h4><span class="status-pill blue">Today</span></div><p>Updated for mid-semester exams.</p></div>
+              <div class="panel"><div class="section-head"><h4>Library reminder</h4><span class="status-pill amber">3 due</span></div><p>Return books before Friday.</p></div>
+              <div class="panel"><div class="section-head"><h4>Event alert</h4><span class="status-pill green">Open</span></div><p>Tech fest registration is live.</p></div>
+              <div class="panel"><div class="section-head"><h4>Fee notice</h4><span class="status-pill purple">Deadline</span></div><p>Semester fee deadline approaching.</p></div>
+            </section>`;
+        case 'library':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Library</div><h3>Library and resources</h3><p>Track borrowed items and digital resources.</p></section>
+            <section class="dashboard-grid dashboard-section active">
+              <div class="panel"><div class="section-head"><h4>Borrowed Books</h4><span class="status-pill green">3 active</span></div><p>Due dates visible in account.</p></div>
+              <div class="panel"><div class="section-head"><h4>Digital Library</h4><span class="status-pill blue">Access</span></div><p>Explore ebooks and journals.</p></div>
+              <div class="panel"><div class="section-head"><h4>Reading List</h4><span class="status-pill amber">Saved</span></div><p>5 books queued for reading.</p></div>
+              <div class="panel"><div class="section-head"><h4>Requests</h4><span class="status-pill purple">Pending</span></div><p>2 resource requests waiting.</p></div>
+            </section>`;
+        case 'schedule':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Schedule</div><h3>Class timetable and teacher calendar</h3><p>See when each subject is scheduled and which teacher is taking the class.</p></section>
+            <section class="dashboard-grid dashboard-section active">
+              <div class="panel tall">
+                <div class="section-head"><h4>Class Calendar</h4><span class="status-pill green">Live</span></div>
+                <div class="calendar-toolbar">
+                  <button class="calendar-switch active" type="button" data-cal-switch="month">Monthly Grid</button>
+                  <button class="calendar-switch" type="button" data-cal-switch="week">Weekly View</button>
+                  <button class="calendar-switch" type="button" data-cal-switch="teacher">Teacher View</button>
+                </div>
+                <div class="calendar-legend">
+                  <span class="legend-item"><i class="legend-dot" style="background:#2563eb"></i> DSA</span>
+                  <span class="legend-item"><i class="legend-dot" style="background:#14b8a6"></i> DBMS</span>
+                  <span class="legend-item"><i class="legend-dot" style="background:#f59e0b"></i> AI Basics</span>
+                  <span class="legend-item"><i class="legend-dot" style="background:#8b5cf6"></i> Cloud</span>
+                  <span class="legend-item"><i class="legend-dot" style="background:#ec4899"></i> Workshop</span>
+                  <span class="legend-item"><i class="legend-dot" style="background:#64748b"></i> Self Study</span>
+                </div>
+
+                <div class="calendar-panel active" data-cal-panel="month">
+                  <div class="month-grid">
+                    <div class="month-cell subject-dsa"><div class="date"><span>Mon 1</span><span>Aug</span></div><span class="calendar-slot subject-dsa">DSA - 8:00</span></div>
+                    <div class="month-cell subject-dbms"><div class="date"><span>Tue 2</span><span>Aug</span></div><span class="calendar-slot teal subject-dbms">DBMS - 11:00</span></div>
+                    <div class="month-cell today subject-ai"><div class="date"><span>Wed 3</span><span>Aug</span></div><span class="calendar-slot amber subject-ai">AI Basics - 9:00</span><span class="calendar-slot subject-cloud">Cloud - 2:00</span></div>
+                    <div class="month-cell subject-dsa"><div class="date"><span>Thu 4</span><span>Aug</span></div><span class="calendar-slot subject-dsa">DSA - 9:30</span></div>
+                    <div class="month-cell subject-dbms"><div class="date"><span>Fri 5</span><span>Aug</span></div><span class="calendar-slot teal subject-dbms">DBMS - 8:30</span></div>
+                    <div class="month-cell subject-workshop"><div class="date"><span>Sat 6</span><span>Aug</span></div><span class="calendar-slot amber subject-workshop">Workshop - 1:30</span></div>
+                    <div class="month-cell subject-study"><div class="date"><span>Sun 7</span><span>Aug</span></div><span class="calendar-slot subject-study">Self study</span></div>
+                    <div class="month-cell subject-dsa"><div class="date"><span>Mon 8</span><span>Aug</span></div><span class="calendar-slot subject-dsa">DSA - 8:00</span></div>
+                    <div class="month-cell subject-dbms"><div class="date"><span>Tue 9</span><span>Aug</span></div><span class="calendar-slot teal subject-dbms">DBMS - 11:00</span></div>
+                    <div class="month-cell subject-ai"><div class="date"><span>Wed 10</span><span>Aug</span></div><span class="calendar-slot amber subject-ai">AI Basics - 9:00</span></div>
+                    <div class="month-cell subject-cloud"><div class="date"><span>Thu 11</span><span>Aug</span></div><span class="calendar-slot subject-cloud">Cloud - 2:00</span></div>
+                    <div class="month-cell subject-cloud"><div class="date"><span>Fri 12</span><span>Aug</span></div><span class="calendar-slot teal subject-cloud">Project review</span></div>
+                    <div class="month-cell subject-workshop"><div class="date"><span>Sat 13</span><span>Aug</span></div><span class="calendar-slot amber subject-workshop">Workshop</span></div>
+                    <div class="month-cell subject-study"><div class="date"><span>Sun 14</span><span>Aug</span></div><span class="calendar-slot subject-study">Reset / Plan</span></div>
+                  </div>
+                </div>
+
+                <div class="calendar-panel" data-cal-panel="week">
+                  <div class="mini-calendar">
+                    <div class="calendar-day"><strong>Mon</strong><span class="calendar-slot subject-dsa">8:00 DSA - Prof. Rao</span><span class="calendar-slot teal subject-dbms">11:00 DBMS - Prof. Iyer</span></div>
+                    <div class="calendar-day"><strong>Tue</strong><span class="calendar-slot amber subject-ai">9:00 AI Basics - Prof. Khan</span><span class="calendar-slot subject-dsa">2:00 Math - Prof. Sen</span></div>
+                    <div class="calendar-day"><strong>Wed</strong><span class="calendar-slot subject-cloud">10:00 Cloud - Prof. Mehta</span><span class="calendar-slot teal subject-dsa">1:00 Lab - Prof. Rao</span></div>
+                    <div class="calendar-day"><strong>Thu</strong><span class="calendar-slot subject-dsa">9:30 DSA - Prof. Rao</span><span class="calendar-slot amber subject-workshop">3:00 Seminar - Prof. Khan</span></div>
+                    <div class="calendar-day"><strong>Fri</strong><span class="calendar-slot subject-dbms">8:30 DBMS - Prof. Iyer</span><span class="calendar-slot teal subject-cloud">12:00 Project - Mentor Team</span></div>
+                    <div class="calendar-day"><strong>Sat</strong><span class="calendar-slot subject-dsa">10:00 Review - Prof. Sen</span><span class="calendar-slot amber subject-workshop">1:30 Workshop - Guest Faculty</span></div>
+                    <div class="calendar-day"><strong>Sun</strong><span class="calendar-slot subject-study">Self study</span><span class="calendar-slot teal subject-study">Prepare next week</span></div>
+                  </div>
+                </div>
+
+                <div class="calendar-panel" data-cal-panel="teacher">
+                  <div class="teacher-strip">
+                    <div class="teacher-row"><div class="teacher-badge">R</div><div><strong>Prof. Rao</strong><p>DSA - Mon 8:00, Thu 9:30, Lab - Wed 1:00</p></div></div>
+                    <div class="teacher-row"><div class="teacher-badge">I</div><div><strong>Prof. Iyer</strong><p>DBMS - Mon 11:00, Fri 8:30</p></div></div>
+                    <div class="teacher-row"><div class="teacher-badge">K</div><div><strong>Prof. Khan</strong><p>AI Basics - Tue 9:00, Seminar - Thu 3:00</p></div></div>
+                    <div class="teacher-row"><div class="teacher-badge">M</div><div><strong>Prof. Mehta</strong><p>Cloud - Wed 10:00, Project mentoring - Fri 12:00</p></div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="section-head"><h4>Next Classes</h4><span class="status-pill blue">Today</span></div>
+                <p>DSA - 11:00 AM - Prof. Rao</p>
+                <p>DBMS - 1:30 PM - Prof. Iyer</p>
+                <p>Cloud Lab - 3:30 PM - Prof. Mehta</p>
+              </div>
+              <div class="panel"><div class="section-head"><h4>Teacher Notes</h4><span class="status-pill purple">Updated</span></div><p>Prof. Rao: bring notebook for lab.</p><p>Prof. Iyer: assignment submission Friday.</p></div>
+              <div class="panel"><div class="section-head"><h4>Room Map</h4><span class="status-pill amber">Active</span></div><p>Virtual Hall A, Room 204, Lab 2, Seminar Room.</p></div>
+            </section>`;
+        case 'portfolio':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Portfolio</div><h3>Your academic portfolio</h3><p>Projects, achievements, and badges.</p></section>
+            <section class="dashboard-grid dashboard-section active">
+              <div class="panel"><div class="section-head"><h4>Projects</h4><span class="status-pill green">4 live</span></div><p>Showcased in your profile.</p></div>
+              <div class="panel"><div class="section-head"><h4>Certificates</h4><span class="status-pill blue">6 earned</span></div><p>Download anytime.</p></div>
+              <div class="panel"><div class="section-head"><h4>Badges</h4><span class="status-pill amber">8 collected</span></div><p>Top performer badge active.</p></div>
+              <div class="panel"><div class="section-head"><h4>Resume</h4><span class="status-pill purple">Updated</span></div><p>Last updated this week.</p></div>
+            </section>`;
+        case 'settings':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Settings</div><h3>Student settings</h3><p>Manage profile, security, and preferences.</p></section>
+            <section class="dashboard-grid dashboard-section active">
+              <div class="panel"><div class="section-head"><h4>Profile</h4><span class="status-pill blue">Edit</span></div><p>Update your personal information.</p></div>
+              <div class="panel"><div class="section-head"><h4>Security</h4><span class="status-pill green">Safe</span></div><p>Change password and devices.</p></div>
+              <div class="panel"><div class="section-head"><h4>Notifications</h4><span class="status-pill amber">Custom</span></div><p>Manage alerts and reminders.</p></div>
+              <div class="panel"><div class="section-head"><h4>Appearance</h4><span class="status-pill purple">Theme</span></div><p>Toggle light or dark mode.</p></div>
+            </section>`;
+        default:
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Student View</div><h3>Welcome back, Student</h3><p>Here is a clear view of your academic progress, tasks, and next steps.</p></section>
+            <section class="kpi-grid dashboard-section active"><div class="kpi-card"><span>CGPA</span><strong>8.7</strong><small>+0.3 this semester</small></div><div class="kpi-card"><span>Attendance</span><strong>94%</strong><small>Above target</small></div><div class="kpi-card"><span>Credits</span><strong>78</strong><small>12 left to graduate</small></div><div class="kpi-card"><span>Pending</span><strong>3</strong><small>Due this week</small></div></section>
+            <section class="dashboard-grid dashboard-section active"><div class="panel tall"><div class="section-head"><h4>Attendance Overview</h4><span class="status-pill green">94%</span></div><div class="chart-shell pie-chart"><div class="donut" style="background:conic-gradient(var(--accent) 0 94%, rgba(255,255,255,0.1) 94% 100%);"></div><div class="chart-legend"><span><i class="dot teal"></i> Present</span><span><i class="dot amber"></i> Late</span></div></div></div><div class="panel tall"><div class="section-head"><h4>Performance Analytics</h4><span class="status-pill blue">Semester</span></div><div class="bar-chart"><span style="height:38%"></span><span style="height:52%"></span><span style="height:58%"></span><span style="height:74%"></span><span style="height:66%"></span><span style="height:86%"></span><span style="height:78%"></span></div></div><div class="panel"><div class="section-head"><h4>Upcoming Classes</h4><span class="status-pill blue">Today</span></div><p>Maths - 10:00 AM - Room 204</p><p>DSA - 12:00 PM - Lab 2</p></div><div class="panel"><div class="section-head"><h4>Recent Assignments</h4><span class="status-pill amber">Due soon</span></div><p>DBMS Lab - Due tomorrow</p><p>AI Lab - Due Friday</p></div><div class="panel"><div class="section-head"><h4>Notifications</h4><span class="status-pill green">Live</span></div><p>Exam schedule updated.</p><p>Library books due soon.</p></div><div class="panel"><div class="section-head"><h4>Learning Progress</h4><span class="status-pill purple">Growth</span></div><p>Frontend Course - 72%</p><p>Cloud Basics - 44%</p></div><div class="panel"><div class="section-head"><h4>Recommended Internships</h4><span class="status-pill teal">Matches</span></div><p>OpenAI Lab - 92% skill match</p><p>BuildCo - 88% skill match</p></div><div class="panel"><div class="section-head"><h4>Quick Actions</h4><span class="status-pill blue">Fast lane</span></div><div class="action-grid"><button class="action-card">Submit Assignment</button><button class="action-card">View Marks</button><button class="action-card">Attendance</button><button class="action-card">Learning Portal</button></div></div></section>`;
+      }
+    }
+
+    function buildAdminPage(page) {
+      switch (page) {
+        case 'admissions':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Admissions</div><h3>Admission pipeline</h3><p>Review applications, pending seats, and offer status.</p></section>
+            <section class="dashboard-grid dashboard-section active"><div class="panel"><div class="section-head"><h4>Applications</h4><span class="status-pill amber">212 pending</span></div><p>48 require document verification.</p></div><div class="panel"><div class="section-head"><h4>Offers</h4><span class="status-pill green">98 sent</span></div><p>32 accepted today.</p></div><div class="panel"><div class="section-head"><h4>Waitlist</h4><span class="status-pill blue">61 students</span></div><p>Batch B is moving quickly.</p></div><div class="panel"><div class="section-head"><h4>Admission SLA</h4><span class="status-pill purple">4.2 days</span></div><p>Average processing time.</p></div></section>`;
+        case 'students':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Students</div><h3>Student registry</h3><p>Manage enrollment, profiles, and academic status.</p></section>
+            <section class="dashboard-grid dashboard-section active"><div class="panel"><div class="section-head"><h4>Active Students</h4><span class="status-pill green">11,860</span></div><p>124 new this week.</p></div><div class="panel"><div class="section-head"><h4>At Risk</h4><span class="status-pill amber">156</span></div><p>Attendance and fee alerts.</p></div><div class="panel"><div class="section-head"><h4>Transfers</h4><span class="status-pill blue">42</span></div><p>Internal migration requests.</p></div><div class="panel"><div class="section-head"><h4>Profiles Updated</h4><span class="status-pill purple">Monthly</span></div><p>Documents synced successfully.</p></div></section>`;
+        case 'faculty':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Faculty</div><h3>Faculty operations</h3><p>Manage workload, leaves, and teaching distribution.</p></section>
+            <section class="dashboard-grid dashboard-section active"><div class="panel"><div class="section-head"><h4>Active Faculty</h4><span class="status-pill green">642</span></div><p>12 on leave today.</p></div><div class="panel"><div class="section-head"><h4>Leaves Pending</h4><span class="status-pill amber">14</span></div><p>Requires approval from HOD.</p></div><div class="panel"><div class="section-head"><h4>Course Load</h4><span class="status-pill blue">Balanced</span></div><p>Average 3.2 courses per faculty.</p></div><div class="panel tall"><div class="section-head"><h4>Teacher List</h4><span class="status-pill purple">Today</span></div><p>Prof. Rao - DSA - 8:00 AM</p><p>Prof. Iyer - DBMS - 11:00 AM</p><p>Prof. Khan - AI Basics - 9:00 AM</p><p>Prof. Mehta - Cloud - 10:00 AM</p></div></section>`;
+        case 'departments':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Departments</div><h3>Department overview</h3><p>Headcount, utilization, and workload across units.</p></section>
+            <section class="dashboard-grid dashboard-section active"><div class="panel"><div class="section-head"><h4>CSE</h4><span class="status-pill green">920 students</span></div><p>42 faculty members.</p></div><div class="panel"><div class="section-head"><h4>ECE</h4><span class="status-pill blue">680 students</span></div><p>31 faculty members.</p></div><div class="panel"><div class="section-head"><h4>MBA</h4><span class="status-pill amber">410 students</span></div><p>18 faculty members.</p></div><div class="panel"><div class="section-head"><h4>ME</h4><span class="status-pill purple">360 students</span></div><p>24 faculty members.</p></div></section>`;
+        case 'courses':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Courses</div><h3>Course catalog</h3><p>Manage active courses, allocation, and new requests.</p></section>
+            <section class="dashboard-grid dashboard-section active"><div class="panel"><div class="section-head"><h4>Active Courses</h4><span class="status-pill green">146</span></div><p>Across all departments.</p></div><div class="panel"><div class="section-head"><h4>New Requests</h4><span class="status-pill amber">12</span></div><p>Waiting for approval.</p></div><div class="panel"><div class="section-head"><h4>Term Updates</h4><span class="status-pill blue">6</span></div><p>Curriculum refresh queued.</p></div><div class="panel"><div class="section-head"><h4>Faculty Mapping</h4><span class="status-pill purple">Live</span></div><p>Course load distribution updated.</p></div></section>`;
+        case 'examinations':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Examinations</div><h3>Exam operations</h3><p>Timetables, hall allocation, and exam notices.</p></section>
+            <section class="dashboard-grid dashboard-section active"><div class="panel"><div class="section-head"><h4>Schedule</h4><span class="status-pill green">Ready</span></div><p>Mid-sem exam prep in progress.</p></div><div class="panel"><div class="section-head"><h4>Hall Plan</h4><span class="status-pill blue">28 rooms</span></div><p>Seating layout confirmed.</p></div><div class="panel"><div class="section-head"><h4>Invigilators</h4><span class="status-pill amber">84 assigned</span></div><p>Coverage is complete.</p></div><div class="panel"><div class="section-head"><h4>Result Workflow</h4><span class="status-pill purple">Draft</span></div><p>Evaluation pipeline active.</p></div></section>`;
+        case 'notices':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Notices</div><h3>Institution notices</h3><p>Publish circulars, alerts, and announcements.</p></section>
+            <section class="dashboard-grid dashboard-section active"><div class="panel"><div class="section-head"><h4>Today's notices</h4><span class="status-pill blue">3 live</span></div><p>Exam circular, fee reminder, event alert.</p></div><div class="panel"><div class="section-head"><h4>Queued</h4><span class="status-pill amber">5 pending</span></div><p>Awaiting review by admin.</p></div><div class="panel"><div class="section-head"><h4>Scheduled</h4><span class="status-pill green">8 planned</span></div><p>Auto-publish next week.</p></div><div class="panel"><div class="section-head"><h4>Priority</h4><span class="status-pill purple">High</span></div><p>Emergency notice template ready.</p></div></section>`;
+        case 'approvals':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Approvals</div><h3>Approval queue</h3><p>Faculty, budget, leave, and course approvals.</p></section>
+            <section class="dashboard-grid dashboard-section active"><div class="panel"><div class="section-head"><h4>Faculty Request</h4><span class="status-pill amber">Leave</span></div><p>Dr. Mehta - 2 day leave request.</p></div><div class="panel"><div class="section-head"><h4>Budget Approval</h4><span class="status-pill blue">Finance</span></div><p>Lab equipment allocation pending.</p></div><div class="panel"><div class="section-head"><h4>Course Update</h4><span class="status-pill green">Curriculum</span></div><p>Minor syllabus revision request.</p></div><div class="panel"><div class="section-head"><h4>Certificate Issue</h4><span class="status-pill purple">Student</span></div><p>Pending signature for batch release.</p></div></section>`;
+        case 'reports':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Reports</div><h3>Reports & analytics</h3><p>Track trends, weekly activity, and institution performance.</p></section>
+            <section class="dashboard-grid dashboard-section active"><div class="panel tall"><div class="section-head"><h4>Weekly Activity</h4><span class="status-pill blue">Live</span></div><div class="bar-chart"><span style="height:34%"></span><span style="height:58%"></span><span style="height:42%"></span><span style="height:74%"></span><span style="height:66%"></span><span style="height:92%"></span><span style="height:78%"></span></div></div><div class="panel"><div class="section-head"><h4>Reports</h4><span class="status-pill green">Export</span></div><p>Admissions, students, faculty, revenue.</p></div><div class="panel"><div class="section-head"><h4>Trends</h4><span class="status-pill amber">Growth</span></div><p>Attendance and retention are improving.</p></div><div class="panel"><div class="section-head"><h4>Benchmarks</h4><span class="status-pill purple">Compare</span></div><p>Department-wise performance tracking.</p></div></section>`;
+        case 'system-logs':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">System Logs</div><h3>System activity</h3><p>Monitor security, access, and background events.</p></section>
+            <section class="dashboard-grid dashboard-section active"><div class="panel"><div class="section-head"><h4>Recent Logs</h4><span class="status-pill blue">Access</span></div><p>Login attempts, exports, approvals.</p></div><div class="panel"><div class="section-head"><h4>Security</h4><span class="status-pill green">Stable</span></div><p>All systems stable.</p></div><div class="panel"><div class="section-head"><h4>Audit Trail</h4><span class="status-pill amber">Tracked</span></div><p>Important actions recorded.</p></div><div class="panel"><div class="section-head"><h4>Alerts</h4><span class="status-pill purple">3 active</span></div><p>Suspicious sign-in monitoring enabled.</p></div></section>`;
+        case 'settings':
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Settings</div><h3>Admin settings</h3><p>Security, preferences, and organization settings.</p></section>
+            <section class="dashboard-grid dashboard-section active"><div class="panel"><div class="section-head"><h4>Profile</h4><span class="status-pill blue">Edit</span></div><p>Institution profile and permissions.</p></div><div class="panel"><div class="section-head"><h4>Security</h4><span class="status-pill green">2FA</span></div><p>Access policies and login protection.</p></div><div class="panel"><div class="section-head"><h4>Branding</h4><span class="status-pill amber">Theme</span></div><p>Logo, colors, and email templates.</p></div><div class="panel"><div class="section-head"><h4>Integrations</h4><span class="status-pill purple">Connected</span></div><p>ERP and communication tools.</p></div></section>`;
+        default:
+          return `
+            <section class="dash-hero dashboard-section active"><div class="hero-badge">Admin View</div><h3>Welcome back, Admin</h3><p>Institution performance, approvals, and operational health at a glance.</p></section>
+            <section class="kpi-grid admin-kpis dashboard-section active"><div class="kpi-card"><span>Total Students</span><strong>12,480</strong><small>+8.4% this month</small></div><div class="kpi-card"><span>Total Faculty</span><strong>642</strong><small>+3.1% this month</small></div><div class="kpi-card"><span>Departments</span><strong>18</strong><small>2 under review</small></div><div class="kpi-card"><span>Active Courses</span><strong>146</strong><small>+12 added</small></div><div class="kpi-card"><span>Pending Approvals</span><strong>23</strong><small>Needs attention</small></div></section>
+            <section class="admin-analytics-grid dashboard-section active"><div class="panel analytics-panel"><div class="section-head"><h4>Admission Overview</h4><span class="status-pill green">Live</span></div><div class="chart-shell pie-chart"><div class="donut"></div><div class="chart-legend"><span><i class="dot blue"></i> Approved</span><span><i class="dot teal"></i> Pending</span><span><i class="dot amber"></i> Rejected</span></div></div></div><div class="panel analytics-panel"><div class="section-head"><h4>Institution Activity</h4><span class="status-pill blue">Weekly</span></div><div class="bar-chart"><span style="height:34%"></span><span style="height:58%"></span><span style="height:42%"></span><span style="height:74%"></span><span style="height:66%"></span><span style="height:92%"></span><span style="height:78%"></span></div></div></section>`;
+      }
+    }
+
+    function renderDashboardPage(page) {
+      const root = getDashboardRoot();
+      if (!root) return;
+      if (page === 'logout') {
+        showAuthShell();
+        return;
+      }
+      const main = root.querySelector('.dashboard-content');
+      const html = dashboardState.role === 'college' ? buildAdminPage(page) : buildStudentPage(page);
+      dashboardState.page = page;
+      main.innerHTML = html;
+      root.querySelectorAll('.sidebar-item').forEach((item) => {
+        item.classList.toggle('active', item.dataset.page === dashboardState.page);
+      });
+      wireDynamicContent(root);
+    }
+
+    function bindSidebarNavigation() {
+      const root = getDashboardRoot();
+      if (!root) return;
+      const rolePages = dashboardState.role === 'college'
+        ? ['dashboard', 'admissions', 'students', 'faculty', 'departments', 'courses', 'examinations', 'notices', 'approvals', 'reports', 'settings', 'system-logs', 'logout']
+        : ['dashboard', 'attendance', 'courses', 'assignments', 'marksheets', 'internship-portal', 'learning', 'notifications', 'library', 'schedule', 'portfolio', 'settings', 'logout'];
+      root.querySelectorAll('.sidebar-item').forEach((item, index) => {
+        item.dataset.page = item.dataset.page || rolePages[index] || 'dashboard';
+        if (item.dataset.bound === 'true') return;
+        item.addEventListener('click', () => {
+          const page = item.dataset.page || 'dashboard';
+          renderDashboardPage(page);
+          if (window.innerWidth <= 900) {
+            const sidebar = item.closest('.dashboard-sidebar');
+            if (sidebar) sidebar.classList.remove('open');
+          }
+        });
+        item.dataset.bound = 'true';
+      });
+    }
+
+    function wireDynamicContent(root) {
+      root.querySelectorAll('.action-card, .queue-actions button, .panel button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.animate([
+            { transform: 'translateY(0)' },
+            { transform: 'translateY(-2px)' },
+            { transform: 'translateY(0)' }
+          ], { duration: 220, easing: 'ease-out' });
+        });
+      });
+
+      const calendarButtons = root.querySelectorAll('[data-cal-switch]');
+      const calendarPanels = root.querySelectorAll('[data-cal-panel]');
+      if (calendarButtons.length && calendarPanels.length) {
+        calendarButtons.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const target = btn.dataset.calSwitch;
+            calendarButtons.forEach((item) => item.classList.toggle('active', item === btn));
+            calendarPanels.forEach((panel) => {
+              panel.classList.toggle('active', panel.dataset.calPanel === target);
+            });
+          });
+        });
+      }
+    }
+
+    const savedRole = localStorage.getItem(roleKey);
+    if (savedRole === 'student' || savedRole === 'college') {
+      showDashboard(savedRole);
+    }
+
+    document.querySelectorAll('.footer-nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.parentElement.querySelectorAll('.footer-nav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('[data-notify-toggle]').forEach((btn) => {
+      btn.addEventListener('click', () => openTopbarPanel('notifications'));
+    });
+
+    document.querySelectorAll('[data-profile-toggle]').forEach((btn) => {
+      btn.addEventListener('click', () => openTopbarPanel('profile'));
+    });
+
+    topbarCloseButtons.forEach((btn) => {
+      btn.addEventListener('click', closeTopbarPanel);
+    });
+
+    topbarOverlay.addEventListener('click', (e) => {
+      if (e.target === topbarOverlay) closeTopbarPanel();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeTopbarPanel();
+      }
+    });
+
+    document.addEventListener('click', async (e) => {
+      const copyBtn = e.target.closest('[data-copy]');
+      if (copyBtn) {
+        const value = copyBtn.dataset.copy || '';
+        try {
+          await navigator.clipboard.writeText(value);
+          copyBtn.textContent = 'Copied';
+          setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1200);
+        } catch {
+          showToast('Copy failed. Please copy manually.', 'error');
+        }
+      }
+
+      if (e.target.closest('[data-resume-preview]')) {
+        showModalSuccess('Resume preview opened. You can connect a real PDF export next.');
+      }
+    });
+
+    document.querySelectorAll('.sidebar-brand').forEach(brand => {
+      brand.addEventListener('dblclick', () => {
+        const sidebar = brand.closest('.dashboard-sidebar');
+        if (sidebar) sidebar.classList.toggle('collapsed');
+      });
+    });
+
+    document.querySelectorAll('.app-shell').forEach(shell => {
+      shell.addEventListener('dblclick', showAuthShell);
+    });
+
+    document.querySelectorAll('.dashboard-sidebar').forEach(sidebar => {
+      sidebar.addEventListener('click', (e) => {
+        if (e.target.closest('.sidebar-item')) return;
+        if (window.innerWidth <= 900) {
+          sidebar.classList.remove('open');
+        }
+      });
+    });
+  </script>
+
+  <script>
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const authForms = document.querySelectorAll('.auth-form');
+    const actionLinks = document.querySelectorAll('[data-action]');
+    const loginSection = document.getElementById('login-section');
+    const signupSection = document.getElementById('signup-section');
+    const forgotPasswordSection = document.getElementById('forgot-password-section');
+    const otpSection = document.getElementById('otp-section');
+    const resetPasswordSection = document.getElementById('reset-password-section');
+    const toastContainer = document.getElementById('toastContainer');
+    const successModal = document.getElementById('successModal');
+
+    let currentTab = 'student';
+    let currentMode = 'login';
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTab = btn.dataset.tab;
+        switchForm();
+      });
+    });
+
+    function switchForm() {
+      authForms.forEach(form => form.classList.remove('active'));
+      const activeForm = document.querySelector(`[data-form="${currentTab}-${currentMode}"]`);
+      if (activeForm) activeForm.classList.add('active');
+    }
+
+    actionLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const action = link.dataset.action;
+        handleAction(action);
+      });
+    });
+
+    function handleAction(action) {
+      loginSection.style.display = 'none';
+      signupSection.style.display = 'none';
+      forgotPasswordSection.style.display = 'none';
+      otpSection.style.display = 'none';
+      resetPasswordSection.style.display = 'none';
+
+      switch(action) {
+        case 'switch-to-signup':
+          currentMode = 'signup';
+          signupSection.style.display = 'block';
+          switchForm();
+          break;
+        case 'switch-to-login':
+          currentMode = 'login';
+          loginSection.style.display = 'block';
+          switchForm();
+          break;
+        case 'forgot-password':
+          currentMode = 'login';
+          forgotPasswordSection.style.display = 'block';
+          break;
+        case 'back-to-login':
+          currentMode = 'login';
+          loginSection.style.display = 'block';
+          switchForm();
+          break;
+        case 'back-to-forgot':
+          currentMode = 'login';
+          forgotPasswordSection.style.display = 'block';
+          break;
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('password-toggle')) {
+        e.preventDefault();
+        const input = e.target.previousElementSibling;
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+        e.target.textContent = isPassword ? '🙈' : '👁️';
+      }
+    });
+
+    document.addEventListener('input', (e) => {
+      if (e.target.classList.contains('strength-check')) {
+        const strength = checkPasswordStrength(e.target.value);
+        const bar = e.target.closest('.form-group').querySelector('.strength-bar');
+        if (bar) {
+          bar.className = 'strength-bar ' + strength;
+        }
+      }
+    });
+
+    function checkPasswordStrength(password) {
+      let strength = 0;
+      if (password.length >= 8) strength++;
+      if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+      if (/\d/.test(password)) strength++;
+      if (/[^a-zA-Z\d]/.test(password)) strength++;
+
+      if (strength <= 1) return 'weak';
+      if (strength <= 2) return 'medium';
+      return 'strong';
+    }
+
+    document.getElementById('studentLoginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleFormSubmit('student-login');
+    });
+
+    document.getElementById('collegeLoginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleFormSubmit('college-login');
+    });
+
+    document.getElementById('studentSignupForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleFormSubmit('student-signup');
+    });
+
+    document.getElementById('collegeSignupForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleFormSubmit('college-signup');
+    });
+
+    document.getElementById('forgotPasswordForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      showToast('OTP sent to your email', 'success');
+      setTimeout(() => {
+        forgotPasswordSection.style.display = 'none';
+        otpSection.style.display = 'block';
+      }, 500);
+    });
+
+    document.getElementById('otpForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      showToast('OTP verified successfully', 'success');
+      setTimeout(() => {
+        otpSection.style.display = 'none';
+        resetPasswordSection.style.display = 'block';
+      }, 500);
+    });
+
+    document.getElementById('resetPasswordForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      showModalSuccess('Password reset successfully. Redirecting to login...');
+      setTimeout(() => {
+        currentMode = 'login';
+        closeModal();
+        handleAction('back-to-login');
+      }, 2000);
+    });
+
+    function getLoginCredentials(formType) {
+      if (formType === 'student-login') {
+        const form = document.getElementById('studentLoginForm');
+        const fields = form.querySelectorAll('input');
+        return {
+          email: (fields[0]?.value || '').trim(),
+          password: (fields[1]?.value || '').trim(),
+        };
+      }
+
+      if (formType === 'college-login') {
+        const form = document.getElementById('collegeLoginForm');
+        const fields = form.querySelectorAll('input');
+        return {
+          email: (fields[0]?.value || '').trim(),
+          password: (fields[1]?.value || '').trim(),
+          code: (fields[2]?.value || '').trim(),
+        };
+      }
+
+      return null;
+    }
+
+    function validateDemoLogin(formType, creds) {
+      if (formType === 'student-login') {
+        return creds.email.toLowerCase() === 'student@university.edu' && creds.password === 'Student@123';
+      }
+      if (formType === 'college-login') {
+        return (
+          creds.email.toLowerCase() === 'admin@college.edu' &&
+          creds.password === 'College@123' &&
+          creds.code.toUpperCase() === 'INST-12345'
+        );
+      }
+      return true;
+    }
+
+    function handleFormSubmit(formType) {
+      const btn = document.querySelector(`[data-form="${formType}"] .btn-primary`);
+      btn.classList.add('loading');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Processing...';
+
+      const creds = getLoginCredentials(formType);
+      const isLogin = formType === 'student-login' || formType === 'college-login';
+
+      setTimeout(() => {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        btn.innerHTML = formType.includes('signup') ? 'Verifying Account...' : 'Continuing...';
+
+        if (isLogin && !validateDemoLogin(formType, creds)) {
+          showToast('Invalid demo credentials. Check README.md', 'error');
+          return;
+        }
+
+        if (formType.includes('signup')) {
+          const nextRole = formType.includes('college') ? 'college' : 'student';
+          showModalSuccess(`Welcome! ${nextRole === 'college' ? 'Institution' : 'Student'} account created successfully.`);
+          setTimeout(() => {
+            closeModal();
+            showDashboard(nextRole);
+          }, 1200);
+        } else {
+          const nextRole = formType.includes('college') ? 'college' : 'student';
+          showModalSuccess(`${nextRole === 'college' ? 'College admin' : 'Student'} login successful. Redirecting...`);
+          setTimeout(() => {
+            closeModal();
+            showDashboard(nextRole);
+          }, 900);
+        }
+      }, 1500);
+    }
+
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+      toast.innerHTML = `
+        <span class="toast-icon">${icons[type]}</span>
+        <span class="toast-message">${message}</span>
+      `;
+      toastContainer.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = 'toast-slide 0.3s ease reverse';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    function showModalSuccess(message) {
+      document.getElementById('modalMessage').textContent = message;
+      successModal.classList.add('active');
+    }
+
+    function closeModal() {
+      successModal.classList.remove('active');
+    }
+
+    console.log('✨ CLMS Authentication System Loaded');
+  </script>
+</body>
+</html>
+
